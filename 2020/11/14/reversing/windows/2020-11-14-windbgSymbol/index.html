@@ -12,7 +12,7 @@
 
 
 
-<title>C로 Downloader 만들기 | Sn0wD3er</title>
+<title>Windbg 심볼 설정 | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">C로 Downloader 만들기</h1>
+            <h1 class="post-title">Windbg 심볼 설정</h1>
             
                 <div class="post-meta">
                     
@@ -182,16 +182,16 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 13, 2020&nbsp;&nbsp;14:28:01</a>
+                        Date: <a href="#">November 14, 2020&nbsp;&nbsp;16:13:32</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Malware-Analysis/">Malware Analysis</a>
+                                <a href="/categories/Reversing/">Reversing</a>
                             
-                                <a href="/categories/Malware-Analysis/Malware/">Malware</a>
+                                <a href="/categories/Reversing/Windows/">Windows</a>
                             
                         </span>
                     
@@ -200,14 +200,13 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Downloader"><a href="#Downloader" class="headerlink" title="Downloader"></a>Downloader</h2><p>Downloader는 프로그램을 자동으로 다운로드 받게 할 수 있는 프로그램이다.</p>
-<h3 id="주요-API"><a href="#주요-API" class="headerlink" title="주요 API"></a>주요 API</h3><ul>
-<li>URLDownloadToFile : 인터넷에서 바이너리 형태로  다운로드하여 파일에 저장</li>
-<li>WinExec : 지정한 응용 프로그램을 실행</li>
+            <h2 id="명령어"><a href="#명령어" class="headerlink" title="명령어"></a>명령어</h2><ul>
+<li>.sympath srv*c:\Symbols*http//msdl.Microsoft.com/download/symbols</li>
+<li>.sympath srv*\\myserver\mysymbols*c:\Symbols*http//msdl.Microsoft.com/download/symbols</li>
+<li>.reload</li>
+<li>.symfix c:\symbols</li>
+<li>.reload</li>
 </ul>
-<h3 id="소스-코드"><a href="#소스-코드" class="headerlink" title="소스 코드"></a>소스 코드</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib,<span class="meta-string">&quot;urlmon.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LoadLibrary(<span class="string">L&quot;urlmon.dll&quot;</span>);</span><br><span class="line">    HRESULT hResult = URLDownloadToFile(</span><br><span class="line">                            <span class="number">0</span>,</span><br><span class="line">                            <span class="string">L&quot;http://app.pc.kakao.com/talk/win32/KakaoTalk_Setup.exe&quot;</span>,</span><br><span class="line">                            <span class="string">L&quot;c:\\Program Files\\a.exe&quot;</span>,<span class="number">0</span>,<span class="number">0</span>); <span class="comment">// 바이너리 형태로 다운로드</span></span><br><span class="line">    WinExec(<span class="string">&quot;c:\\Program Files\\a.exe&quot;</span>,SW_SHOW);  <span class="comment">//프로그램 실행</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
 
         </div>
 
@@ -222,7 +221,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/13/malware/malware/2020-11-11-Downloader/">https://sn0wd3er.github.io/2020/11/13/malware/malware/2020-11-11-Downloader/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/14/reversing/windows/2020-11-14-windbgSymbol/">https://sn0wd3er.github.io/2020/11/14/reversing/windows/2020-11-14-windbgSymbol/</a></span>
                     </p>
                 
                 
@@ -246,7 +245,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Downloader/"># Downloader</a>
+                        <a href="/tags/Windbg/"># Windbg</a>
                     
                         
                 </span>
@@ -259,8 +258,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/13/malware/malware/2020-11-11-Dropper/">C++로 Dropper 만들기</a>
+                <a class="prev" rel="prev" href="/2020/11/14/reversing/windows/2020-11-14-criticalAndMutex/">임계 영역과 뮤텍스</a>
             
+            
+            <a class="next" rel="next" href="/2020/11/14/reversing/windows/2020-11-14-threadAndSync/">스레드와 동기화 개념</a>
             
         </section>
 

