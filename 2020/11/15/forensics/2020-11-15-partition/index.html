@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Sn0wd3er">
+
+
+
+
+
+<title>Partition | Sn0wD3er</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sn0wd3er`s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sn0wd3er`s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Partition</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Sn0wd3er</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;12:59:02</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Forensics/">Forensics</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="HDD-유형"><a href="#HDD-유형" class="headerlink" title="HDD 유형"></a>HDD 유형</h2><ul>
+<li>CHS : Cylinder/Header/Sector &gt; 2TB</li>
+<li>LBA : Logical Black Address  &gt; 2TB+ , 요즘 방식</li>
+</ul>
+<h2 id="파티션"><a href="#파티션" class="headerlink" title="파티션"></a>파티션</h2><p><img src="/img/partition.PNG" alt="Partition"><br>하드드라이브를 파티션 분할하여 별도로 프로그램을 저장 , 바이러스에 감염되더라도 분할된 파티션만 제거할 수 있다. 멀티 부팅도 가능하게 해준다.</p>
+<h3 id="Sector"><a href="#Sector" class="headerlink" title="Sector"></a>Sector</h3><p>하드디스크에서 정보를 저장하는 기본단위이다. 기본적으로 512BYTE를 가진며 물리적인 단위이다.</p>
+<h3 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h3><p>논리적인 단위로 운영체제가 정한 정보를 저장하는 기본단위이다. 운영체제가 3개의 섹터를 1개의 클러스터로 정하면 운영체제가 관리하는 단위는 3개의 섹터를 한번에 관리를 한다.</p>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p><img src="/img/mbr.PNG" alt="MBR"></p>
+<p>파티션의 제일 앞쪽에 위치해 있으며 마스터 부트 레코드로 4개의 주 파티션의 크기 정보를 가지고 있다.<br>파티션 테이블은 16BYTE로 4개를 가지고 있다. 파티션 테이블은 boot flag(1), 시작 H-C-S(3), 파일 시스템 종류(1), 끝 H-C-S(3), 시작 sector(4), 크기(4)를 구성하고 있다.<br>파티션 테이블의 시작 H-C-S, 끝 H-C-S는 CHS일 때 사용하며 시작 sector, 크기는 LBA에 사용된다.</p>
+<h3 id="VBR"><a href="#VBR" class="headerlink" title="VBR"></a>VBR</h3><p>파티션상에 boot를 위한 정보를 가지고 있고 파티션 내부 구조 정보가 기록되어 있다.</p>
+<h3 id="확장-마스터-부트-레코드"><a href="#확장-마스터-부트-레코드" class="headerlink" title="확장 마스터 부트 레코드"></a>확장 마스터 부트 레코드</h3><p>주 파티션을 4개로 분할하여 만든 확장 파티션의 정보를 가지고 있다.</p>
+<h3 id="주-파티션과-확장-파티션"><a href="#주-파티션과-확장-파티션" class="headerlink" title="주 파티션과 확장 파티션"></a>주 파티션과 확장 파티션</h3><p>주 파티션은 부팅을 할 수 있지만 확장 파티션은 부팅을 하지 못한다. 하나의 주 파티션에 4개를 다시 분할한 것이 확장 파티션이다.</p>
+<h3 id="Slack-공간"><a href="#Slack-공간" class="headerlink" title="Slack 공간"></a>Slack 공간</h3><p>정보를 몰래 은닉할 수 있는할 수 있는 공간이다.</p>
+<h2 id="구조-예시및-파일-시스템"><a href="#구조-예시및-파일-시스템" class="headerlink" title="구조 예시및 파일 시스템"></a>구조 예시및 파일 시스템</h2><ul>
+<li>MBR</li>
+<li>Partion<ul>
+<li>FAT : | BR(Boot Record) | FAT | Data</li>
+<li>NTFS : | VBR | MFT | Data</li>
+</ul>
+</li>
+</ul>
+<h3 id="MetaData"><a href="#MetaData" class="headerlink" title="MetaData"></a>MetaData</h3><p>데이터의 기본적인 정보를 가지고 있으며 데이터를 빠르게 탐색할 수 있다.</p>
+<h3 id="FAT"><a href="#FAT" class="headerlink" title="FAT"></a>FAT</h3><p>FAT는 기본적인 파일 시스템으로 Windows에서 사용하며 NTFS라는 파일 시스템도 사용한다.<br>Windows 9x/DOS에서 사용되었던 파일 시스템이다. 그 이상 버전에서도 사용가능하지만 NTFS를 사용한다.</p>
+<table>
+<thead>
+<tr>
+<th align="center">FAT</th>
+<th align="left">클러스터 수</th>
+<th align="center">용량</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FAT12</td>
+<td align="left">2^12</td>
+<td align="center">16MB</td>
+</tr>
+<tr>
+<td align="center">FAT16</td>
+<td align="left">2^16</td>
+<td align="center">2GB</td>
+</tr>
+<tr>
+<td align="center">FAT32</td>
+<td align="left">2^28</td>
+<td align="center">2TB이지만 32GB로 제한</td>
+</tr>
+</tbody></table>
+<p>FAT32는 7번째 섹터에 부트섹터(VBR)의 백업을 가지고 있다. 백업은 FAT32에만 존재한다. NTFS는 제일 마지막 섹터에 위치한다.</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Sn0wd3er</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/15/forensics/2020-11-15-partition/">https://sn0wd3er.github.io/2020/11/15/forensics/2020-11-15-partition/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Partition/"># Partition</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/11/15/forensics/windows/2020-11-15-collectionCommand/">윈도우 정보 수집 기본 명령어</a>
+            
+            
+            <a class="next" rel="next" href="/2020/11/15/tools/web/2020-11-15-webWeapons/">Web Hackers Weapons</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Sn0wd3er | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

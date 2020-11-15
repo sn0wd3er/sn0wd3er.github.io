@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Sn0wd3er">
+
+
+
+
+
+<title>PE 파일 | Sn0wD3er</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sn0wd3er`s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sn0wd3er`s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">PE 파일</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Sn0wd3er</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;17:07:37</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Windows/">Windows</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="PE"><a href="#PE" class="headerlink" title="PE"></a>PE</h2><p>윈도우 기반 운영체제에서 사용하는 실행파일 형식으로 UNIX의 COFF(Common Object File Format)을 기반으로 한다. 가상 메모리 주소 공간에 PE Loader가 PE 파일을 가지고 메모리에 알맞게 배치하며 프로그램 유형, 동작등에 맞쳐서 알맞게 로드해준다.<br>64비트는 PE32+이다.</p>
+<h3 id="가상-메모리"><a href="#가상-메모리" class="headerlink" title="가상 메모리"></a>가상 메모리</h3><p>운영체제에서 사용하는 논리적 메모리,  모든 프로세스는 각자 하나의 가상 메모리를 가지고 있다. 실제 물리 메모리 주소와 가상 주소를 매핑한 후 해당 영역을 사용<br>메모리는 사용자 영역과 커널 영역으로 나뉘며 서로 침범을 못한다.</p>
+<h3 id="RVA-Relative-Virtual-Address-VA"><a href="#RVA-Relative-Virtual-Address-VA" class="headerlink" title="RVA(Relative Virtual Address) , VA"></a>RVA(Relative Virtual Address) , VA</h3><p><img src="/img/rva.PNG" alt="RVA,VA"></p>
+<p>가상주소(VA) = ImageBase + RVA</p>
+<h2 id="PE-구조"><a href="#PE-구조" class="headerlink" title="PE 구조"></a>PE 구조</h2><p><img src="/img/pe.PNG" alt="PE"></p>
+<h3 id="IMAGE-DOS-HEADER"><a href="#IMAGE-DOS-HEADER" class="headerlink" title="IMAGE_DOS_HEADER"></a>IMAGE_DOS_HEADER</h3><table>
+<thead>
+<tr>
+<th align="center">종류</th>
+<th align="left">의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">e_magic</td>
+<td align="left">“MZ”(4D5A)</td>
+</tr>
+<tr>
+<td align="center">e_lfanew</td>
+<td align="left">IMAGE_NT_HEADERS 시작주소</td>
+</tr>
+</tbody></table>
+<h3 id="IMAGE-NT-HEADERS"><a href="#IMAGE-NT-HEADERS" class="headerlink" title="IMAGE_NT_HEADERS"></a>IMAGE_NT_HEADERS</h3><table>
+<thead>
+<tr>
+<th align="center">종류</th>
+<th align="left">의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Signature</td>
+<td align="left">“PE”</td>
+</tr>
+<tr>
+<td align="center">FileHeader</td>
+<td align="left">IMAGE_FILE_HEADER(20byte)</td>
+</tr>
+<tr>
+<td align="center">OptionalHeader</td>
+<td align="left">IMAGE_OPTIONAL_HEADER(224byte)</td>
+</tr>
+</tbody></table>
+<h4 id="IMAGE-FILE-HEADER-20Byte"><a href="#IMAGE-FILE-HEADER-20Byte" class="headerlink" title="IMAGE_FILE_HEADER(20Byte)"></a>IMAGE_FILE_HEADER(20Byte)</h4><table>
+<thead>
+<tr>
+<th align="center">종류</th>
+<th align="left">의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Machine</td>
+<td align="left">CPU 아키텍쳐</td>
+</tr>
+<tr>
+<td align="center">NumberOfSections</td>
+<td align="left">섹션</td>
+</tr>
+<tr>
+<td align="center">TimeDateStamp</td>
+<td align="left">파일이 만들어진 시간</td>
+</tr>
+<tr>
+<td align="center">SizeOfOptionalHeader</td>
+<td align="left">IMAGE_OPTIONAL_HEADER 구조체 바이트 수</td>
+</tr>
+</tbody></table>
+<h4 id="IMAGE-OPTIONAL-HEADER-224Byte"><a href="#IMAGE-OPTIONAL-HEADER-224Byte" class="headerlink" title="IMAGE_OPTIONAL_HEADER(224Byte)"></a>IMAGE_OPTIONAL_HEADER(224Byte)</h4><table>
+<thead>
+<tr>
+<th align="center">종류</th>
+<th align="left">의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Magic</td>
+<td align="left">32bit or 64bit</td>
+</tr>
+<tr>
+<td align="center">AddressOfEntryPoint</td>
+<td align="left">최초로 실행되는 코드의 시작 주소</td>
+</tr>
+<tr>
+<td align="center">ImageBase</td>
+<td align="left">PE 파일이 로딩되는 시작 주소</td>
+</tr>
+<tr>
+<td align="center">SectionAlignment</td>
+<td align="left">메모리의 섹션 최소 단위</td>
+</tr>
+<tr>
+<td align="center">FileAlignment</td>
+<td align="left">파일의 섹션 최소 단위</td>
+</tr>
+<tr>
+<td align="center">SizeOfImage</td>
+<td align="left">메모리 로딩 시 차지하는 PE 파일 크기</td>
+</tr>
+<tr>
+<td align="center">SizeOfHeaders</td>
+<td align="left">PE 헤더의 전체 크기</td>
+</tr>
+<tr>
+<td align="center">Subsystem</td>
+<td align="left">파일 종류(드라이버/실행 파일)</td>
+</tr>
+<tr>
+<td align="center">DllCharacteristics</td>
+<td align="left">ASLR, DEP, SEH, Signing 관련속성</td>
+</tr>
+<tr>
+<td align="center">NumberOfRvaAndSizes</td>
+<td align="left">DataDirectory배열 개수</td>
+</tr>
+</tbody></table>
+<h4 id="IMAGE-SECTION-HEADERS"><a href="#IMAGE-SECTION-HEADERS" class="headerlink" title="IMAGE_SECTION_HEADERS"></a>IMAGE_SECTION_HEADERS</h4><table>
+<thead>
+<tr>
+<th align="center">종류</th>
+<th align="left">의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Name</td>
+<td align="left">섹션이름</td>
+</tr>
+<tr>
+<td align="center">VirtualSize</td>
+<td align="left">메모리에서 섹션 크기</td>
+</tr>
+<tr>
+<td align="center">VirtualAddress</td>
+<td align="left">메모리에서 섹션 주소</td>
+</tr>
+<tr>
+<td align="center">SizeOfRawData</td>
+<td align="left">파일에서 섹션 크기</td>
+</tr>
+<tr>
+<td align="center">PointerToRawData</td>
+<td align="left">파일에서 섹션의 시작위치</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Section : 프로그램의 실제 내용을 담고 있는 블럭</li>
+<li>권한 : rwx</li>
+<li>섹션 종류<table>
+<thead>
+<tr>
+<th align="center">섹션</th>
+<th align="left">의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">.text</td>
+<td align="left">프로그램의 코드 부분</td>
+</tr>
+<tr>
+<td align="center">.data</td>
+<td align="left">일기/쓰기 데이터 (전역 변수)</td>
+</tr>
+<tr>
+<td align="center">.bss</td>
+<td align="left">초기화 되지 않은 데이터</td>
+</tr>
+<tr>
+<td align="center">.rsrc</td>
+<td align="left">프로그램에서 사용하는 리소스(아이콘, 추가 바이너리)</td>
+</tr>
+<tr>
+<td align="center">.idata</td>
+<td align="left">IAT 정보( 실제로는 .text 또는 .rdata에 있다)</td>
+</tr>
+<tr>
+<td align="center">.edata</td>
+<td align="left">Export 정보</td>
+</tr>
+<tr>
+<td align="center">.reloc</td>
+<td align="left">재배치정보</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="File-lt-gt-MEM"><a href="#File-lt-gt-MEM" class="headerlink" title="File &lt;-&gt; MEM"></a>File &lt;-&gt; MEM</h3><ul>
+<li>File = 메모리 섹션의 주소 - 데이터 주소 + 파일 섹션의 주소</li>
+<li>MEM = 파일 섹션 주소 - 데이터 주소 + 메모리 섹션의 주소</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Sn0wd3er</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/">https://sn0wd3er.github.io/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/PE/"># PE</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/11/15/2020-11-15-sqlInjection/">SQL Injection 기법</a>
+            
+            
+            <a class="next" rel="next" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-64bit/">64bit 환경</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Sn0wd3er | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

