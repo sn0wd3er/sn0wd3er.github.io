@@ -12,7 +12,7 @@
 
 
 
-<title>SQL Injection 기법 | Sn0wD3er</title>
+<title>무선 통신 | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">SQL Injection 기법</h1>
+            <h1 class="post-title">무선 통신</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;19:49:08</a>
+                        Date: <a href="#">November 16, 2020&nbsp;&nbsp;14:39:16</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Web/">Web</a>
+                                <a href="/categories/Network/">Network</a>
                             
                         </span>
                     
@@ -198,52 +198,45 @@
         </header>
 
         <div class="post-content">
-            <h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="인증-우회"><a href="#인증-우회" class="headerlink" title="인증 우회"></a>인증 우회</h3><ul>
-<li><p>인증 쿼리 질의문<br><code>Select * from members where id=&#39;&#39; and pass=&#39;&#39;</code></p>
-</li>
-<li><p><code>&#39; or 1=1 #</code></p>
-</li>
-<li><p><code>&#39; or &#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot; or &quot;x&quot;=&quot;x</code></p>
-</li>
-<li><p><code>&#39;) or (&#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot;) or (&quot;x&quot;=&quot;x</code></p>
-</li>
+            <h2 id="무선-통신"><a href="#무선-통신" class="headerlink" title="무선 통신"></a>무선 통신</h2><p>무선 통신은 전자기파를 이용한 통신 방법과 이용한 초음파 영역을 이용한 통신 방법이다.</p>
+<h3 id="주파수"><a href="#주파수" class="headerlink" title="주파수"></a>주파수</h3><p>주파수는 1초에 몇 번 떨리는지를 나타낸 것</p>
+<ul>
+<li>Hz: 주파수 단위</li>
 </ul>
-<h3 id="Error-Based"><a href="#Error-Based" class="headerlink" title="Error Based"></a>Error Based</h3><ul>
-<li><code>0&#39; union select all 1,concat(id,login,password),3,4,concat(email,secret),6,7 from users#</code></li>
-<li><code>0&#39; union select all 1,2,3,4,5 #</code> </li>
-</ul>
-<p>UNION SELECT ALL 다음 컬럼 값은 앞선 질의문의 쿼리문의 개수와 같아야한다. </p>
-<h3 id="Blind"><a href="#Blind" class="headerlink" title="Blind"></a>Blind</h3><ul>
-<li><code>&#39; or 1=1 and length(database())=5#</code></li>
-<li><code>&#39; or 1=1= and substring(database(),1,1)=&#39;b&#39;#</code></li>
-<li><code>&#39; or 1=1 and ascii(substring(database(),1,1))=98#</code></li>
-</ul>
-<p>‘참’과 ‘거짓’의 결과만으로 결과를 얻어낸다.</p>
-<h3 id="Time-Based"><a href="#Time-Based" class="headerlink" title="Time Based"></a>Time Based</h3><ul>
-<li><code>&#39; or 1=1 and sleep(5)#</code></li>
-</ul>
-<p>sleep()함수를 이용해서 시간을 비교해서 원하는 결과를 얻는 방법, 하지만 시간도 많이 걸리고 제일 마지막에 시도하는 방법이다.</p>
-<h2 id="SQL-Injection-Cheat-Sheet"><a href="#SQL-Injection-Cheat-Sheet" class="headerlink" title="SQL Injection Cheat Sheet"></a>SQL Injection Cheat Sheet</h2><p><a target="_blank" rel="noopener" href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a></p>
-<h2 id="My-SQL-Injection에-기본적으로-알아야-할-것들"><a href="#My-SQL-Injection에-기본적으로-알아야-할-것들" class="headerlink" title="My SQL Injection에 기본적으로 알아야 할 것들"></a>My SQL Injection에 기본적으로 알아야 할 것들</h2><ul>
-<li>@@version</li>
-<li>information_schema.tables<ul>
-<li>table_name</li>
+<p>주파수는 파장과 반비례하며 낮은 주파수는 파장이 커지므로 대역폭이 증가한다. 반대로 높은 주파수는 파장이 낮아서 대역폭이 짧아지지만 데이터를 빠르게 전송시킬 수 있다.</p>
+<h2 id="WAP"><a href="#WAP" class="headerlink" title="WAP"></a>WAP</h2><p>무선 인터넷 프로토콜로 무선 장치를 이용하여 인터넷 서비스를 이용하도록 지원하는 표준 기술이다.</p>
+<h3 id="구성"><a href="#구성" class="headerlink" title="구성"></a>구성</h3><p><img src="/img/wap.PNG" alt="WAP"></p>
+<h4 id="WAP-게이트웨이"><a href="#WAP-게이트웨이" class="headerlink" title="WAP 게이트웨이"></a>WAP 게이트웨이</h4><p>유 - 무선을 연결시켜주는 인터페이스 역할을 하며 HTML 콘텐츠를 WML로 변환하는 등 인터페이스 역할을 한다.</p>
+<h4 id="WAE"><a href="#WAE" class="headerlink" title="WAE"></a>WAE</h4><p>다양한 무선 환경에 대한 응용 계층 상호운용성 제공, 서로 다른 단말기 끼리 통신할 수 있게 도와준다. Application </p>
+<h4 id="WSL"><a href="#WSL" class="headerlink" title="WSL"></a>WSL</h4><p>연결지향/비연결지향 세션 관리 기능을 제공한다. Seesion </p>
+<h4 id="WTP"><a href="#WTP" class="headerlink" title="WTP"></a>WTP</h4><p>트랜잭션 서비스 제공, 무선과 유선 네트워크에서 TCP 프로토콜 간의 연결을 해준다. Transaction </p>
+<h4 id="WTLS"><a href="#WTLS" class="headerlink" title="WTLS"></a>WTLS</h4><p>전송 계층의 보안 서비스 제공, TLS기반으로한 보안 프로토콜. Security</p>
+<ul>
+<li><p>Record Protocol<br><img src="/img/record.PNG" alt="Record"></p>
+</li>
+<li><p>Handshake Protocol</p>
+<ul>
+<li>세션 동안 공유 비밀 정보, 세션키의 생성 및 공유 지원<br><img src="/img/handshake.PNG" alt="Handshake"></li>
 </ul>
 </li>
-<li>information_shcema.columns<ul>
-<li>column_name</li>
+<li><p>Change cipher specs Protocol</p>
+<ul>
+<li>보안 연결의 암호화 스펙과 시작을 통보하기 위해 사용</li>
 </ul>
 </li>
-<li>database()</li>
-<li>length()</li>
-<li>substring(문자열,시작,개수)</li>
-<li>ascii()</li>
-<li>limit 시작,개수 : 컬럼을 하나씩 가져오기위해 사용</li>
+<li><p>Alert Protocol</p>
+<ul>
+<li>세션 중에 발생하는 오류를 알림<h4 id="WDP"><a href="#WDP" class="headerlink" title="WDP"></a>WDP</h4></li>
 </ul>
+</li>
+</ul>
+<p>무선 데이터 송 - 수신 기능 제공, Transport</p>
+<h2 id="WPKI"><a href="#WPKI" class="headerlink" title="WPKI"></a>WPKI</h2><p>무선 환경에서 공개키 기반 인증, 키 분배를 제공하는 구조, 모바일 뱅킹등 공인인증서 에서 많이 쓰임</p>
+<h3 id="구성-1"><a href="#구성-1" class="headerlink" title="구성"></a>구성</h3><p><img src="/img/wpki.PNG" alt="WPKI"></p>
+<h4 id="CP-서버"><a href="#CP-서버" class="headerlink" title="CP 서버"></a>CP 서버</h4><p>무선 콘텐츠를 제공, 인증서 관리 및 검증 요청을 대행하는 등록기관 역할을 수행</p>
+<h4 id="OCSP-서버"><a href="#OCSP-서버" class="headerlink" title="OCSP 서버"></a>OCSP 서버</h4><p>인증서 상태 정보를 실시간으로 제공</p>
+<h4 id="CA"><a href="#CA" class="headerlink" title="CA"></a>CA</h4><p>WPKI 무선 인증 기관 , 인증서 생성, 발급, 갱신, 폐지 등의 서비스를 제공</p>
+<h4 id="MS"><a href="#MS" class="headerlink" title="MS"></a>MS</h4><p>핸드폰이나 PDA같은 무선 단말기를 뜻함</p>
 
         </div>
 
@@ -258,7 +251,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/15/2020-11-15-sqlInjection/">https://sn0wd3er.github.io/2020/11/15/2020-11-15-sqlInjection/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/16/network/basic/2020-11-16-wireless/">https://sn0wd3er.github.io/2020/11/16/network/basic/2020-11-16-wireless/</a></span>
                     </p>
                 
                 
@@ -282,7 +275,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/SQL-Injection/"># SQL Injection</a>
+                        <a href="/tags/TLS/"># TLS</a>
+                    
+                        <a href="/tags/WAP/"># WAP</a>
                     
                         
                 </span>
@@ -295,8 +290,10 @@
         </section>
         <section class="post-nav">
             
+                <a class="prev" rel="prev" href="/2020/11/16/tools/sqlmap/2020-11-16-sqlmap/">SQLmap</a>
             
-            <a class="next" rel="next" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/">PE 파일</a>
+            
+            <a class="next" rel="next" href="/2020/11/16/network/basic/2020-11-16-nfc/">NFC</a>
             
         </section>
 

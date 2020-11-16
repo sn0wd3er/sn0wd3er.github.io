@@ -12,7 +12,7 @@
 
 
 
-<title>TLS | Sn0wD3er</title>
+<title>NFC | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">TLS</h1>
+            <h1 class="post-title">NFC</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 14, 2020&nbsp;&nbsp;22:30:18</a>
+                        Date: <a href="#">November 16, 2020&nbsp;&nbsp;14:20:48</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Windows/">Windows</a>
+                                <a href="/categories/Network/">Network</a>
                             
                         </span>
                     
@@ -198,14 +198,7 @@
         </header>
 
         <div class="post-content">
-            <h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>스레드마다 다른 값을 가지는 전역변수, 즉 스레드가 고유한 저장공간을 갖는다 생각하면 된다. 레이스 컨디션과 메모리 누수를 해결하기위해 도입</p>
-<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
-<li>TlsAlloc(), TlsFree : 동적할당</li>
-<li>__declspec(Thread) int g_value = 0 : 정적할당</li>
-<li>.tls Section에 생성</li>
-</ul>
-<h3 id="TLS-Callback-Function"><a href="#TLS-Callback-Function" class="headerlink" title="TLS Callback Function"></a>TLS Callback Function</h3><p>프로세스 스레드가 생성/종료될 떄마다 자동으로 호출되는 함수이며 프로세스 진입점 이전에 실행되는 루틴이다. 특히 악성코드에서 안티 디버깅에 주로 쓰인다.<br>PE의 TLS Directory 구조체에 AddressofCallBacks를 통해 주소 확인이 가능하다.</p>
-<p>~</p>
+            <h2 id="NFC"><a href="#NFC" class="headerlink" title="NFC"></a>NFC</h2><p>NFC는 무선통신으로 교통카드, 카드 결제 등에 사용된다. 블루투스같은 무선통신이랑 다른 점은 전력이 필요하지 않다. 전력이 필요하지 않는다는 것은 리더기가 전력을 공급해주고 통신을 한다는 의미이다. 따라서 리더기와의 거리는 가까워야 한다. 암호화 된다는 장점이 있지만 보안에 취약하다는 단점도 있다. </p>
 
         </div>
 
@@ -220,7 +213,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-12-tls/">https://sn0wd3er.github.io/2020/11/14/reversing/windows/windowStructure/2020-11-12-tls/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/16/network/basic/2020-11-16-nfc/">https://sn0wd3er.github.io/2020/11/16/network/basic/2020-11-16-nfc/</a></span>
                     </p>
                 
                 
@@ -244,7 +237,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/TLS/"># TLS</a>
+                        <a href="/tags/NFC/"># NFC</a>
                     
                         
                 </span>
@@ -257,10 +250,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/14/tools/privesc/2020-11-14-privesc/">Privesc Site</a>
+                <a class="prev" rel="prev" href="/2020/11/16/network/basic/2020-11-16-wireless/">무선 통신</a>
             
             
-            <a class="next" rel="next" href="/2020/11/14/reversing/windows/windowStructure/2020-11-12-teb/">TEB</a>
+            <a class="next" rel="next" href="/2020/11/16/network/basic/2020-11-16-osi/">OSI 7 Layer</a>
             
         </section>
 
