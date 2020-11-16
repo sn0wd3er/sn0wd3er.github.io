@@ -12,7 +12,7 @@
 
 
 
-<title>SQLmap | Sn0wD3er</title>
+<title>Import Binding | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">SQLmap</h1>
+            <h1 class="post-title">Import Binding</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 16, 2020&nbsp;&nbsp;15:49:18</a>
+                        Date: <a href="#">November 17, 2020&nbsp;&nbsp;2:18:57</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Tools/">Tools</a>
+                                <a href="/categories/Windows/">Windows</a>
                             
                         </span>
                     
@@ -198,44 +198,9 @@
         </header>
 
         <div class="post-content">
-            <h2 id="SQLmap"><a href="#SQLmap" class="headerlink" title="SQLmap"></a>SQLmap</h2><p>SQL Injection 자동화 도구</p>
-<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p><code>sqlmap -u [URL] --cookie=[Your Cookie]</code></p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data]</code> : POST 데이터 설정</p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] --dbs</code> : 데이터 베이스 이름 찾기 </p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] -D [Database Name] --tables</code> : 데이블 정보</p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] -D [Database Name] -T [Table Name] --columns</code> : 컬럼 조회</p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] -D [Database Name] -T [Table Name] -C [Column Name] --dump</code> : 해당 테이블의 컬럼 정보를 덤프 </p>
-<p><code>sqlmap -u [URL] --role</code> : role은 권한을 탐색해주는 옵션이다. 참고로 MsSql은 SA(administrator)가 관리자 권한이다.</p>
-<h3 id="r-옵션"><a href="#r-옵션" class="headerlink" title="-r 옵션"></a>-r 옵션</h3><p>BurpSuite로 패킷을 잡은 다음 패킷 내용을 복사한 후 텍스트 파일로 저장한 후 취약한 파라미터에 <code>&#39;&#39;</code>싱글 쿼터를 준 후 <code># sqlmap -r [text]</code>로 옵션을 주고 실행 하면 자동으로 쉽게 Injection을 할 수 있다.</p>
-<h3 id="주의사항"><a href="#주의사항" class="headerlink" title="주의사항"></a>주의사항</h3><p>한 번 SQLmap을 사용하면 로그가 남아 동일한 대상으로 다시 SQLmap을 실행하려면 로그를 삭제하여야 한다. (log : <code>/.sqlmap/output/</code>)<br>TimeBased 기반 Injection은 과부하를 발생 시킬 수도 있어서 <code>--techniques</code>옵션을 줘서 Injection 종류를 정하는게 좋다</p>
-<table>
-<thead>
-<tr>
-<th align="center">technique</th>
-<th align="left">설명</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">B</td>
-<td align="left">Boolean Based Blind SQL</td>
-</tr>
-<tr>
-<td align="center">E</td>
-<td align="left">Error Based SQL</td>
-</tr>
-<tr>
-<td align="center">U</td>
-<td align="left">Union Query</td>
-</tr>
-<tr>
-<td align="center">S</td>
-<td align="left">Stacked queries</td>
-</tr>
-<tr>
-<td align="center">T</td>
-<td align="left">Time-Based Blind</td>
-</tr>
-</tbody></table>
+            <h2 id="Import-Bounding"><a href="#Import-Bounding" class="headerlink" title="Import Bounding"></a>Import Bounding</h2><p>프로그램 링크 시 함수의 주소를 해석하고 IAT에 삽입하는 과정을 의미, IMAGE_IMPORT_DESCRIPTOR의 TimeStamp 값이 -1인 경우에 사용한다.</p>
+<h3 id="Pre-Binding"><a href="#Pre-Binding" class="headerlink" title="Pre Binding"></a>Pre Binding</h3><p>로딩 시간에 IAT를 완성하지 않고 링킹 시 IAT를 미리 완성하는 기능 다시말해 미리 IAT를 완성해 놓고 Loader에 그대로 전해주어 바로 로딩할 수 있게 미리 준비하는 방법이다.<br>하지만 API의 주소가 IAT와 다를 수 있다. 메모리에 올라와 있던 DLL의 TimeDateStamp가 최신이면 IAT를 최신 껄로 덮어 쓴다. IAT구조체에 TimeDateStamp가 -1이면 Bounding을 한 것이다.</p>
+<h3 id="지연-로드"><a href="#지연-로드" class="headerlink" title="지연 로드"></a>지연 로드</h3><p>Pre Binding과 반대로 DLL을 사용하기 전까지 라이브러리를 메모리에 로드하지 않는다. GetProcAddress를 사용해서 DLL 사용 트리거되면 주소를 가져와서 로드해준다. </p>
 
         </div>
 
@@ -250,7 +215,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/16/tools/sqlmap/2020-11-16-sqlmap/">https://sn0wd3er.github.io/2020/11/16/tools/sqlmap/2020-11-16-sqlmap/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/17/reversing/windows/windowStructure/2020-11-17-importBounding/">https://sn0wd3er.github.io/2020/11/17/reversing/windows/windowStructure/2020-11-17-importBounding/</a></span>
                     </p>
                 
                 
@@ -274,7 +239,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/SQLmap/"># SQLmap</a>
+                        <a href="/tags/Import-Binding/"># Import Binding</a>
                     
                         
                 </span>
@@ -287,10 +252,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/17/reversing/windows/windowStructure/2020-11-17-dll/">DLL</a>
             
-            
-            <a class="next" rel="next" href="/2020/11/16/network/basic/2020-11-16-wireless/">무선 통신</a>
+            <a class="next" rel="next" href="/2020/11/17/reversing/windows/windowStructure/2020-11-17-dll/">DLL</a>
             
         </section>
 

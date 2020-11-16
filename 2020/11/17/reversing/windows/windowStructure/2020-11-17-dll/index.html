@@ -12,7 +12,7 @@
 
 
 
-<title>SQLmap | Sn0wD3er</title>
+<title>DLL | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">SQLmap</h1>
+            <h1 class="post-title">DLL</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 16, 2020&nbsp;&nbsp;15:49:18</a>
+                        Date: <a href="#">November 17, 2020&nbsp;&nbsp;1:56:31</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Tools/">Tools</a>
+                                <a href="/categories/Windows/">Windows</a>
                             
                         </span>
                     
@@ -198,44 +198,37 @@
         </header>
 
         <div class="post-content">
-            <h2 id="SQLmap"><a href="#SQLmap" class="headerlink" title="SQLmap"></a>SQLmap</h2><p>SQL Injection 자동화 도구</p>
-<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p><code>sqlmap -u [URL] --cookie=[Your Cookie]</code></p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data]</code> : POST 데이터 설정</p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] --dbs</code> : 데이터 베이스 이름 찾기 </p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] -D [Database Name] --tables</code> : 데이블 정보</p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] -D [Database Name] -T [Table Name] --columns</code> : 컬럼 조회</p>
-<p><code>sqlmap -u [URL] --cookie=[Your Cookie] --data [Data] -D [Database Name] -T [Table Name] -C [Column Name] --dump</code> : 해당 테이블의 컬럼 정보를 덤프 </p>
-<p><code>sqlmap -u [URL] --role</code> : role은 권한을 탐색해주는 옵션이다. 참고로 MsSql은 SA(administrator)가 관리자 권한이다.</p>
-<h3 id="r-옵션"><a href="#r-옵션" class="headerlink" title="-r 옵션"></a>-r 옵션</h3><p>BurpSuite로 패킷을 잡은 다음 패킷 내용을 복사한 후 텍스트 파일로 저장한 후 취약한 파라미터에 <code>&#39;&#39;</code>싱글 쿼터를 준 후 <code># sqlmap -r [text]</code>로 옵션을 주고 실행 하면 자동으로 쉽게 Injection을 할 수 있다.</p>
-<h3 id="주의사항"><a href="#주의사항" class="headerlink" title="주의사항"></a>주의사항</h3><p>한 번 SQLmap을 사용하면 로그가 남아 동일한 대상으로 다시 SQLmap을 실행하려면 로그를 삭제하여야 한다. (log : <code>/.sqlmap/output/</code>)<br>TimeBased 기반 Injection은 과부하를 발생 시킬 수도 있어서 <code>--techniques</code>옵션을 줘서 Injection 종류를 정하는게 좋다</p>
-<table>
-<thead>
-<tr>
-<th align="center">technique</th>
-<th align="left">설명</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">B</td>
-<td align="left">Boolean Based Blind SQL</td>
-</tr>
-<tr>
-<td align="center">E</td>
-<td align="left">Error Based SQL</td>
-</tr>
-<tr>
-<td align="center">U</td>
-<td align="left">Union Query</td>
-</tr>
-<tr>
-<td align="center">S</td>
-<td align="left">Stacked queries</td>
-</tr>
-<tr>
-<td align="center">T</td>
-<td align="left">Time-Based Blind</td>
-</tr>
-</tbody></table>
+            <h2 id="라이브러리-Static-Linking"><a href="#라이브러리-Static-Linking" class="headerlink" title="라이브러리(Static Linking)"></a>라이브러리(Static Linking)</h2><ul>
+<li>다른 프로그램과의 연결을 위해 존재, 서브 루틴이나 함수들이 저장된 파일의 모음</li>
+<li>운영체제의 기능이 필요한 경우 프로그램에 라이브러리 파일을 포함해 빌드해야함</li>
+</ul>
+<h2 id="DLL"><a href="#DLL" class="headerlink" title="DLL"></a>DLL</h2><p>동적으로 연결할 수 있는 라이브러리</p>
+<h4 id="명시적-링킹-Explict"><a href="#명시적-링킹-Explict" class="headerlink" title="명시적 링킹(Explict)"></a>명시적 링킹(Explict)</h4><ul>
+<li>프로그램에서 필요한 순간에 DLL+함수 정보를 로드 후 해제</li>
+<li>명시적 링킹은 LoadLibrary() 함수 와 GetProcAddress()함수를 사용하여 동적으로 프로세스 메모리 공간에 DLL과 함수를 프로그램 실행 도중에 불러온다. Dll Injection에도 사용하는 방법이다.</li>
+</ul>
+<h4 id="암시적-링킹-Implict"><a href="#암시적-링킹-Implict" class="headerlink" title="암시적 링킹 (Implict)"></a>암시적 링킹 (Implict)</h4><ul>
+<li>PE 파일 자체에 사용하는 DLL+ 함수 정보를 포함 후 프로그램 실행시 로드</li>
+</ul>
+<h2 id="IAT"><a href="#IAT" class="headerlink" title="IAT"></a>IAT</h2><p>명시적 링킹 방법으로 프로그램이 함수 호출 시 필요한 함수 주소 목록을 담고 있는 테이블</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_DESCRIPTOR</span>&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">union</span>&#123;</span></span><br><span class="line">		DWORD Characteristics;</span><br><span class="line">		DWORD OriginalFirstThunk;   </span><br><span class="line">	&#125;</span><br><span class="line">	DWORD TimeDataStamp;</span><br><span class="line">	DWORD ForwarderChain;</span><br><span class="line">	DWORD Name;</span><br><span class="line">	DWORD FirstThunk;</span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_BY_NAME</span>&#123;</span></span><br><span class="line">	WORD Hint;</span><br><span class="line">	BYTE Name[<span class="number">1</span>];</span><br><span class="line">&#125; IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>OriginalFirstThunk : [INT]Import Name Table 주소</li>
+<li>Name : 라이브러리 이름 문자열 주소</li>
+<li>FirstThunk : [IAT]Import Address Table 주소</li>
+<li>Hint : 서수</li>
+<li>Name[1] : 함수 이름 문자열</li>
+</ul>
+<h3 id="DLL-가져오는-순서"><a href="#DLL-가져오는-순서" class="headerlink" title="DLL 가져오는 순서"></a>DLL 가져오는 순서</h3><p><img src="/img/IAT.PNG" alt="IAT"></p>
+<ol>
+<li>DataDirectory[1] </li>
+<li>IMAGE_DIRECTORY_ENTRY_IMPORT.VirtualAddress : DLL마다 정보를 가진 구조체 주소</li>
+<li>IMAGE_IMPORT_DESCRIPTOR.Name : “user32.dll”,”kernel32.dll”등 dll이름</li>
+<li>IMAGE_IMPORT_DESCRIPTOR.OriginFirstThunk -&gt; INT : INT는 DLL의 API이름 목록을 가지고 있다.(Hint: 서수도 사용)</li>
+<li>IMAGE_IMPORT_DESCRIPTOR.FirstThunk -&gt; IAT : IAT는 DLL의 API함수 주소를 가지고 있다.</li>
+<li>INT에서 본 이름과 서수로 IAT에서 함수 주소를 찾는다.</li>
+</ol>
 
         </div>
 
@@ -250,7 +243,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/16/tools/sqlmap/2020-11-16-sqlmap/">https://sn0wd3er.github.io/2020/11/16/tools/sqlmap/2020-11-16-sqlmap/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/17/reversing/windows/windowStructure/2020-11-17-dll/">https://sn0wd3er.github.io/2020/11/17/reversing/windows/windowStructure/2020-11-17-dll/</a></span>
                     </p>
                 
                 
@@ -274,7 +267,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/SQLmap/"># SQLmap</a>
+                        <a href="/tags/IAT/"># IAT</a>
+                    
+                        <a href="/tags/DLL/"># DLL</a>
                     
                         
                 </span>
@@ -287,10 +282,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/17/reversing/windows/windowStructure/2020-11-17-dll/">DLL</a>
+                <a class="prev" rel="prev" href="/2020/11/17/reversing/windows/windowStructure/2020-11-17-importBounding/">Import Binding</a>
             
             
-            <a class="next" rel="next" href="/2020/11/16/network/basic/2020-11-16-wireless/">무선 통신</a>
+            <a class="next" rel="next" href="/2020/11/16/tools/sqlmap/2020-11-16-sqlmap/">SQLmap</a>
             
         </section>
 
