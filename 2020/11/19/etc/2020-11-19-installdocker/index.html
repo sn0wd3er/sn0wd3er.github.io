@@ -12,7 +12,7 @@
 
 
 
-<title>File Upload Attack | Sn0wD3er</title>
+<title>Kali에서 도커 설치 및 로그(워드프레스) | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">File Upload Attack</h1>
+            <h1 class="post-title">Kali에서 도커 설치 및 로그(워드프레스)</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 17, 2020&nbsp;&nbsp;16:06:48</a>
+                        Date: <a href="#">November 19, 2020&nbsp;&nbsp;17:34:41</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Web/">Web</a>
+                                <a href="/categories/ETC/">ETC</a>
                             
                         </span>
                     
@@ -198,32 +198,32 @@
         </header>
 
         <div class="post-content">
-            <h2 id="File-Upload-취약점"><a href="#File-Upload-취약점" class="headerlink" title="File Upload 취약점"></a>File Upload 취약점</h2><p>웹 쉘등 악의적인 파일을 웹 서버에 업로드하여 침투하는 공격, 보통 확장자를 검증이 미약하여 업로드가 된다.</p>
-<h3 id="파일-업로드-취약점-조건"><a href="#파일-업로드-취약점-조건" class="headerlink" title="파일 업로드 취약점 조건"></a>파일 업로드 취약점 조건</h3><ol>
-<li>업로드할 확장자가 허용되어야 한다.</li>
-<li>업로드한 파일의 절대 경로를 알아야 한다.</li>
-<li>업로드한 파일의 실행권한이 있어야 한다.</li>
-</ol>
-<h3 id="웹-서버를-시작으로-근접-네트워크-침투"><a href="#웹-서버를-시작으로-근접-네트워크-침투" class="headerlink" title="웹 서버를 시작으로 근접 네트워크 침투"></a>웹 서버를 시작으로 근접 네트워크 침투</h3><p>데이터베이스에 직접 공격을 할 수 없기 때문에, 웹 서버로 침투 후 내부 시스템의 정보를 획득 -&gt; 내부 포탈 서버, 로그 서버 등 내부 시스템 대상으로 포트포워딩, 터널링 기법을 이용</p>
-<h4 id="포트-포워딩-터널링"><a href="#포트-포워딩-터널링" class="headerlink" title="포트 포워딩, 터널링"></a>포트 포워딩, 터널링</h4><p>포트 포워딩은 포트 끼리 연결을 시켜주는 거다. 공격자는 내부망에 침투할 수 없으므로 웹 서버(WAS)를 통하여 내부망으로 침투를 해야한다. 웹 서버에 침투 후 내부망 서버나 PC등에 정보를 수집 후 취약한 서비스가 열려있거나 하면 웹 서버의 포트와 공격자 포트랑 연결 시킨 후 웹 서버와 내부망의 취약한 서비스 포트와 연결 시켜 하나의 길을 뚫어준다 생각하면 된다.</p>
-<ul>
-<li>취약한 포트 80</li>
-<li>웹 서버 5555</li>
-<li>공격자 4444</li>
+            <h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p>sudo apt-get update<br>sudo apt install docker.io<br>sudo service docker start</p>
+<h3 id="Docker-간단-Command"><a href="#Docker-간단-Command" class="headerlink" title="Docker 간단 Command"></a>Docker 간단 Command</h3><ul>
+<li><code>docker search []</code> : 이미지 찾기</li>
+<li><code>docker pull []</code> : 이미지 설치</li>
+<li><code>docker run -p [호스트에서 사용할 PORT]:[Container PORT] []</code> : 도커 실행</li>
 </ul>
-<p>공격자(4444) &lt;—-&gt; WAS(5555) &lt;—-&gt; 내부망 취약 서비스 포트(80)</p>
-<p><code>meterpreter&gt; protfwd add -l [locahost 포트] -p [포워딩할 대상 포트] -r [포워딩할 대상IP]</code></p>
-<h4 id="BurpSuite"><a href="#BurpSuite" class="headerlink" title="BurpSuite"></a>BurpSuite</h4><p>Burpsuite의 Intruder나 Repeater로 우회되는 확장자를 BruteForce로 찾는 방법도 있다.</p>
-<h4 id="Bypass"><a href="#Bypass" class="headerlink" title="Bypass"></a>Bypass</h4><ol>
-<li>자바스크립트 우회</li>
-<li>블랙리스트 방식 우회</li>
-<li>PHP - php3 , php5 , phtml..</li>
-<li>jsp - jsp , JSP , JsP , js%70</li>
-<li>asp(IIS) - asp , aspx , asa , cer , asx (Windows같은 경우는 대소문자 구분안하지만 Linux환경은 대소문자를 구분함)</li>
-<li>화이트 리스트 방식 우회 - jpg,png,doc,pdf.. , 화이트 리스트는 웹 자체의 취약점을 이용해서 우회해야한다.</li>
-<li>IIS웹 서버 경우 shell.exe;jpg로 확장자를 우회한 후 파일을 올리게 되면 IIS의 취약점인 왼쪽에서 오른쪽으로 값을 읽어나가기 때문에 shell.exe;까지만 보고 shell.exe를 실행한다는 취약점이 있다 </li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files</a></p>
+<h3 id="Docker-쉘-동작"><a href="#Docker-쉘-동작" class="headerlink" title="Docker 쉘 동작"></a>Docker 쉘 동작</h3><ul>
+<li><code>sudo docker container run -i -t --name [Name] [Image] /bin/bash</code></li>
+<li><code>sudo docker exec -i -t [Image] /bin/sh</code></li>
+</ul>
+<h3 id="Docker-Container-중지"><a href="#Docker-Container-중지" class="headerlink" title="Docker Container 중지"></a>Docker Container 중지</h3><ul>
+<li><code>docker stop [Image]</code></li>
+</ul>
+<h3 id="Docker-Image-제거"><a href="#Docker-Image-제거" class="headerlink" title="Docker Image 제거"></a>Docker Image 제거</h3><ul>
+<li><code>docker rm</code></li>
+</ul>
+<h2 id="Install-Wordpress"><a href="#Install-Wordpress" class="headerlink" title="Install Wordpress"></a>Install Wordpress</h2><h4 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h4><ul>
+<li><code>docker run -d --name mysql -v mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:5.7</code></li>
+</ul>
+<h4 id="WordPress"><a href="#WordPress" class="headerlink" title="WordPress"></a>WordPress</h4><ul>
+<li><code>docker run -d --name wordpress -v wordpress:/var/www/html --link mysql:mysql -e WORDPRESS_DB_HOST=mysql:3306 -e WORDPRESS_DB_PASSWORD=wordpress -p 80:80 wordpress:latest</code></li>
+</ul>
+<h2 id="Logs"><a href="#Logs" class="headerlink" title="Logs"></a>Logs</h2><ul>
+<li><code>sudo docker inspect [image]</code> : 도커 설정 보기</li>
+<li><code>sudo docker logs [Image]</code></li>
+</ul>
 
         </div>
 
@@ -238,7 +238,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/17/web/fileupload/2020-11-17-fileupload/">https://sn0wd3er.github.io/2020/11/17/web/fileupload/2020-11-17-fileupload/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/19/etc/2020-11-19-installdocker/">https://sn0wd3er.github.io/2020/11/19/etc/2020-11-19-installdocker/</a></span>
                     </p>
                 
                 
@@ -262,7 +262,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/File-Upload-Attack/"># File Upload Attack</a>
+                        <a href="/tags/Docker-Wordpress/"># Docker Wordpress</a>
+                    
+                        <a href="/tags/Docker/"># Docker</a>
                     
                         
                 </span>
@@ -275,10 +277,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/18/reversing/windows/debuger/2020-11-18-makeDebuger1/">Debuger 제작1</a>
             
-            
-            <a class="next" rel="next" href="/2020/11/17/etc/2020-11-17-dockerWordpress/">워드프레스 설치(도커)</a>
+            <a class="next" rel="next" href="/2020/11/19/network/basic/2020-11-19-dns/">DNS</a>
             
         </section>
 
