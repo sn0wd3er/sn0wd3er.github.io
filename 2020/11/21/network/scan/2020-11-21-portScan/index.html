@@ -12,7 +12,7 @@
 
 
 
-<title>Kali에서 도커 설치 및 로그(워드프레스) | Sn0wD3er</title>
+<title>Port Scan | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Kali에서 도커 설치 및 로그(워드프레스)</h1>
+            <h1 class="post-title">Port Scan</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 19, 2020&nbsp;&nbsp;17:34:41</a>
+                        Date: <a href="#">November 21, 2020&nbsp;&nbsp;13:56:33</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/ETC/">ETC</a>
+                                <a href="/categories/Network/">Network</a>
                             
                         </span>
                     
@@ -198,32 +198,42 @@
         </header>
 
         <div class="post-content">
-            <h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p>sudo apt-get update<br>sudo apt install docker.io<br>sudo service docker start</p>
-<h3 id="Docker-간단-Command"><a href="#Docker-간단-Command" class="headerlink" title="Docker 간단 Command"></a>Docker 간단 Command</h3><ul>
-<li><code>docker search []</code> : 이미지 찾기</li>
-<li><code>docker pull []</code> : 이미지 설치</li>
-<li><code>docker run -p [호스트에서 사용할 PORT]:[Container PORT] []</code> : 도커 실행</li>
-</ul>
-<h3 id="Docker-쉘-동작"><a href="#Docker-쉘-동작" class="headerlink" title="Docker 쉘 동작"></a>Docker 쉘 동작</h3><ul>
-<li><code>sudo docker container run -i -t --name [Name] [Image] /bin/bash</code></li>
-<li><code>sudo docker exec -i -t [Image] /bin/sh</code></li>
-</ul>
-<h3 id="Docker-Container-중지"><a href="#Docker-Container-중지" class="headerlink" title="Docker Container 중지"></a>Docker Container 중지</h3><ul>
-<li><code>docker stop [Image]</code></li>
-</ul>
-<h3 id="Docker-Image-제거"><a href="#Docker-Image-제거" class="headerlink" title="Docker Image 제거"></a>Docker Image 제거</h3><ul>
-<li><code>docker rm</code></li>
-</ul>
-<h2 id="Install-Wordpress"><a href="#Install-Wordpress" class="headerlink" title="Install Wordpress"></a>Install Wordpress</h2><h4 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h4><ul>
-<li><code>docker run -d --name mysql -v mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:5.7</code></li>
-</ul>
-<h4 id="WordPress"><a href="#WordPress" class="headerlink" title="WordPress"></a>WordPress</h4><ul>
-<li><code>docker run -d --name wordpress -v wordpress:/var/www/html --link mysql:mysql -e WORDPRESS_DB_HOST=mysql:3306 -e WORDPRESS_DB_PASSWORD=wordpress -p 80:80 wordpress:latest</code></li>
-</ul>
-<h2 id="Logs"><a href="#Logs" class="headerlink" title="Logs"></a>Logs</h2><ul>
-<li><code>sudo docker inspect [image]</code> : 도커 설정 보기</li>
-<li><code>sudo docker logs [Image]</code></li>
-</ul>
+            <h2 id="Port-Scan"><a href="#Port-Scan" class="headerlink" title="Port Scan"></a>Port Scan</h2><table>
+<thead>
+<tr>
+<th align="center">종류</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Open Scan</td>
+<td align="left">정상적인 통신 절차를 이용한 스캔</td>
+</tr>
+<tr>
+<td align="center">Syn/Half Scan</td>
+<td align="left">로그를 기록하지 않음 -&gt; 탐지가 어려움</td>
+</tr>
+<tr>
+<td align="center">Null Scan</td>
+<td align="left">Flag를 사용하지 않는 스캔</td>
+</tr>
+<tr>
+<td align="center">X-mas Tree Scan</td>
+<td align="left">사용하지 않는 Flag를 이용해서 스캔</td>
+</tr>
+<tr>
+<td align="center">Fin Scan</td>
+<td align="left">Fin Flag를 설정 후 스캔</td>
+</tr>
+<tr>
+<td align="center">UDP Scan</td>
+<td align="left">UDP 패킷을 보내여 스캔하는 방법, 특이하게 포트가 닫혀있으면 ICMP프로토콜로 구분한다</td>
+</tr>
+</tbody></table>
+<h3 id="Open-Scan"><a href="#Open-Scan" class="headerlink" title="Open Scan"></a>Open Scan</h3><p>Open Scan은 Syn/Syn+Ack/Ack의 3 way handshake과정을 모두 수행하여 스캔하는 방법이다. 포트가 닫혀있으면 Ack+Rst가 온다.</p>
+<h3 id="Syn-Half-Scan"><a href="#Syn-Half-Scan" class="headerlink" title="Syn/Half Scan"></a>Syn/Half Scan</h3><p>Half Scan은 Open Scan의 로그가 남는 방식을 없애기 위해 Syn을 보내고 Syn+Ack이 오면 포트가 열려있다고 판단하여 RST를 보내 로그를 안남기게 하는 것이다. </p>
+<h3 id="Null-X-mas-Fin"><a href="#Null-X-mas-Fin" class="headerlink" title="Null,X-mas,Fin"></a>Null,X-mas,Fin</h3><p>Flag를 비정상적으로 보내 포트가 열려있으면 아무 응답이 없지만 포트가 닫혀 있으면 RST를 보낸다. 하지만 Windows나 네트워크 패킷 필터링에서 의미없는 Flag이기 때문에 지금은 차단된다.</p>
+<h3 id="UDP-Scan"><a href="#UDP-Scan" class="headerlink" title="UDP Scan"></a>UDP Scan</h3><p>UDP는 데이터만 보내는 프로토콜 이지만 IP로 같이 보내기 때문에 대상의 포트가 열려있지 않으면 ICMP Unreachable을 보낸다. 이를 이용해서 포트가 열려있는지 닫혀있는지를 ICMP를 확인해서 판단한다.</p>
 
         </div>
 
@@ -238,7 +248,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/19/etc/2020-11-19-installdocker/">https://sn0wd3er.github.io/2020/11/19/etc/2020-11-19-installdocker/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/21/network/scan/2020-11-21-portScan/">https://sn0wd3er.github.io/2020/11/21/network/scan/2020-11-21-portScan/</a></span>
                     </p>
                 
                 
@@ -262,9 +272,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Docker-Wordpress/"># Docker Wordpress</a>
-                    
-                        <a href="/tags/Docker/"># Docker</a>
+                        <a href="/tags/Port-Scan/"># Port Scan</a>
                     
                         
                 </span>
@@ -277,10 +285,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/21/network/basic/2020-11-21-tcpIP/">TCP / IP</a>
+                <a class="prev" rel="prev" href="/2020/11/21/osint/2020-11-21-networkScan/">Netenum, Netdiscover</a>
             
             
-            <a class="next" rel="next" href="/2020/11/19/network/basic/2020-11-19-dns/">DNS</a>
+            <a class="next" rel="next" href="/2020/11/21/network/basic/2020-11-21-tcpIP/">TCP / IP</a>
             
         </section>
 
