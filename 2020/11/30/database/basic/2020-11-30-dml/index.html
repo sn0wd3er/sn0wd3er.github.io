@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Sn0wd3er">
+
+
+
+
+
+<title>DML | Sn0wD3er</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Sn0wd3er`s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Sn0wd3er`s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/todo">To do</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">DML</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Sn0wd3er</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 30, 2020&nbsp;&nbsp;15:18:55</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Database/">Database</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h2><ul>
+<li>데이터의 선택,삽입,수정,삭제에 사용</li>
+<li>SELECT,INSERT,UPDATE,DELETE</li>
+<li>트랜잭션(데이터 변경의 최소 단위)을 발생시킨다.</li>
+</ul>
+<h3 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO [table] VALUES (값1,값2..)</span><br><span class="line">INSERT INTO [table](Col1,Col2) VALUES (값1,값2..)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>IDENTITY : 테이블 만들시 지정시 자동으로 생성될 때 값이 올라간다.</p>
+<ul>
+<li>IDENTITY의 올라가는 숫자를 바꾸고 싶을 떄는 <code>SET IDENTITY_INSERT [TABLE] [ON/OFF]</code>를 써주면 된다. ON은 값을 바꿀 수 있고 OFF는 다시 원상태로 복귀 된다.</li>
+</ul>
+</li>
+<li><p>DEFAULT : 만든 테이블의 값에 입력이 없을 떄 DEFAULT값으로 생성한 값이 생성된다.</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE testTBL3(</span><br><span class="line">	id INT IDENTITY,</span><br><span class="line">	userName NCHAR(3),</span><br><span class="line">	age INT,</span><br><span class="line">	nation NCHAR(4) DEFAULT N&#39;대한민국&#39;);</span><br><span class="line"></span><br><span class="line">INSERT INTO testTBL3 VALUES(N&#39;토마스&#39;,27,DEFAULT);</span><br><span class="line">INSERT INTO testTBL3 VALUES(N&#39;고든&#39;,33,N&#39;미국&#39;);</span><br><span class="line"></span><br><span class="line">SELECT * from testTBL3;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/insert.PNG" alt="INSERT"></p>
+<h4 id="INSERT로-복사"><a href="#INSERT로-복사" class="headerlink" title="INSERT로 복사"></a>INSERT로 복사</h4><p>SELECT INTO랑 같은 일을 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 저장할 테이블 이름(열1,열2..)</span><br><span class="line">	SELECT 열1,열2 FROM 복사할 테이블 이름</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE storedTBL2 (</span><br><span class="line">	id int,</span><br><span class="line">	Fname char(4),</span><br><span class="line">	Lname char(4)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">CREATE TABLE copyTBL2(</span><br><span class="line">	id int,</span><br><span class="line">	Fname char(4),</span><br><span class="line">	Lname char(4)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">INSERT INTO copyTBL2 VALUES(1,&#39;Kim&#39;,&#39;Jeam&#39;)</span><br><span class="line">INSERT INTO copyTBL2 VALUES(2,&#39;Jin&#39;,&#39;Teah&#39;)</span><br><span class="line"></span><br><span class="line">INSERT INTO storedTBL2 SELECT id,Fname,Lname FROM copyTBL2;</span><br><span class="line"></span><br><span class="line">SELECT * FROM copyTBL2;</span><br><span class="line">SELECT * FROM storedTBL2;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/insertCopy.PNG" alt="INSERT"></p>
+<h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h3><p>데이터를 수정하는 쿼리이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 테이블 이름 </span><br><span class="line">SET 열1&#x3D;값1,열2&#x3D;값2</span><br><span class="line">WHERE 조건</span><br></pre></td></tr></table></figure>
+
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p>데이터 삭제 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM 테이블 이름</span><br><span class="line">WHERE 조건</span><br></pre></td></tr></table></figure>
+
+<h3 id="MERGE"><a href="#MERGE" class="headerlink" title="MERGE"></a>MERGE</h3><p>Merge는 중요한 데이터가 있는 테이블을 변경하기전에 미리 여분의 테이블을 만들어 만든 테이블에 변경 값을 써주고 정확하다 싶을 떄 합병해주는 구문이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CREATE TABLE changeTBL</span><br><span class="line">(</span><br><span class="line">	changeType NCHAR(4),</span><br><span class="line">	userID char(8),</span><br><span class="line">	userName nvarchar(10),</span><br><span class="line">	addr nchar(2)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">INSERT INTO changeTBL VALUES</span><br><span class="line">(N&#39;신규가입&#39;,&#39;TPN&#39;,N&#39;티파니&#39;,N&#39;미국&#39;),</span><br><span class="line">(N&#39;주소변경&#39;,&#39;LSG&#39;,null,N&#39;제주&#39;)</span><br><span class="line"></span><br><span class="line">SELECT * FROM changeTBL;</span><br><span class="line"></span><br><span class="line">MERGE memberTBL AS M</span><br><span class="line">USING changeTBL AS C</span><br><span class="line">ON M.userID&#x3D;C.userID</span><br><span class="line">WHEN NOT MATCHED AND changeType &#x3D; N&#39;신규가입&#39; THEN</span><br><span class="line">INSERT (userID,userName,addr) VALUES(C.userID,C.userName,C.addr)</span><br><span class="line">WHEN MATCHED AND changeType &#x3D; N&#39;주소변경&#39; THEN</span><br><span class="line">UPDATE SET M.addr&#x3D;C.addr;</span><br><span class="line"></span><br><span class="line">SELECT * FROM memberTBL;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MERGE [합병할 테이블]</span><br><span class="line">USING [데이터가 바뀐 테이블]</span><br><span class="line">ON [열1 &#x3D; 열1]  &#x2F;&#x2F;맞는지 확인</span><br><span class="line">WHEN NOT MATCHED AND 조건 THEN &#x2F;&#x2F; 열이 맞지 않을 시</span><br><span class="line">WHEN MATCED AND 조건 THEN &#x2F;&#x2F; 열이 맞을 시</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Sn0wd3er</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/30/database/basic/2020-11-30-dml/">https://sn0wd3er.github.io/2020/11/30/database/basic/2020-11-30-dml/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Database-Query/"># Database Query</a>
+                    
+                        <a href="/tags/UPDATE/"># UPDATE</a>
+                    
+                        <a href="/tags/INSERT/"># INSERT</a>
+                    
+                        <a href="/tags/DELETE/"># DELETE</a>
+                    
+                        <a href="/tags/MERGE/"># MERGE</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/11/30/database/basic/2020-11-30-dataType/">Data Type</a>
+            
+            
+            <a class="next" rel="next" href="/2020/11/30/database/basic/2020-11-30-groupBy/">Group By, 집계함, Having</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Sn0wd3er | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

@@ -12,7 +12,7 @@
 
 
 
-<title>Nmap | Sn0wD3er</title>
+<title>Data Type | Sn0wD3er</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Nmap</h1>
+            <h1 class="post-title">Data Type</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 27, 2020&nbsp;&nbsp;21:37:06</a>
+                        Date: <a href="#">November 30, 2020&nbsp;&nbsp;16:04:46</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Tools/">Tools</a>
+                                <a href="/categories/Database/">Database</a>
                             
                         </span>
                     
@@ -198,84 +198,108 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h2><p>Port scan 할 수 있는 오픈소스 도구이다.</p>
-<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><table>
+            <h2 id="Data-Type"><a href="#Data-Type" class="headerlink" title="Data Type"></a>Data Type</h2><h3 id="숫자형"><a href="#숫자형" class="headerlink" title="숫자형"></a>숫자형</h3><table>
 <thead>
 <tr>
-<th align="center">Options</th>
+<th align="center">데이터</th>
+<th align="center">바이트</th>
 <th align="left">설명</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">-sT</td>
-<td align="left">TCP를 이용한 포트 스캔</td>
+<td align="center">BIT</td>
+<td align="center">1</td>
+<td align="left">True,False</td>
 </tr>
 <tr>
-<td align="center">-sV</td>
-<td align="left">버전 정보를 스캔</td>
+<td align="center">INT</td>
+<td align="center">4</td>
+<td align="left">정수</td>
 </tr>
 <tr>
-<td align="center">-sS</td>
-<td align="left">스텔스 스캔으로 TCP를 완전히 연결시키지 않고 스캔하는 방법</td>
+<td align="center">SMALLINT</td>
+<td align="center">2</td>
+<td align="left">정수</td>
 </tr>
 <tr>
-<td align="center">-sP</td>
-<td align="left">Ping을 이용한 스캔이다</td>
+<td align="center">BIGINT</td>
+<td align="center">8</td>
+<td align="left">정수</td>
 </tr>
 <tr>
-<td align="center">-sC</td>
-<td align="left">Nmap script를 실행하는 옵션</td>
+<td align="center">REAL</td>
+<td align="center">4</td>
+<td align="left">FLOAT</td>
 </tr>
 <tr>
-<td align="center">-p</td>
-<td align="left">포트를 설정 -p 80,443</td>
+<td align="center">MONEY</td>
+<td align="center">8</td>
+<td align="left">화폐</td>
 </tr>
 <tr>
-<td align="center">-p-</td>
-<td align="left">모든 포트를 스캔</td>
-</tr>
-<tr>
-<td align="center">-top-prot [Number]</td>
-<td align="left">상위 N개의 포트를 설정</td>
-</tr>
-<tr>
-<td align="center">-A</td>
-<td align="left">버전 정보랑 스크립트를 이용한 정보를 가져온다</td>
-</tr>
-<tr>
-<td align="center">-O</td>
-<td align="left">운영체제 정보</td>
-</tr>
-<tr>
-<td align="center">-T[0-5]</td>
-<td align="left">속도 설정</td>
-</tr>
-<tr>
-<td align="center">–source-prot [Port Num]</td>
-<td align="left">데이터가 나가는 포트 번호를 지정할 수 있다</td>
-</tr>
-<tr>
-<td align="center">-oX [File Name]</td>
-<td align="left">결과를 XML파일로 OUTPUT해준다</td>
+<td align="center">SMALLMONEY</td>
+<td align="center">4</td>
+<td align="left">화폐</td>
 </tr>
 </tbody></table>
-<h2 id="Zenmap"><a href="#Zenmap" class="headerlink" title="Zenmap"></a>Zenmap</h2><p>Nmap의 GUI 버전이다.</p>
-<h3 id="Zenmap-설치"><a href="#Zenmap-설치" class="headerlink" title="Zenmap 설치"></a>Zenmap 설치</h3><p>칼리 2020 버전에서는 설치되어 있지 않아서 <a target="_blank" rel="noopener" href="https://nmap.org/zenmap">https://nmap.org/zenmap</a> 홈페이지 에서 다운로드 받아야한다.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># sudo apt install alien</span><br><span class="line"># sudo alien [RPM 파일]</span><br><span class="line"># sudo dpkg -i [Deb 파일]</span><br></pre></td></tr></table></figure>
-
-<p>alien은 RPM 파일을 Deb파일로 변경시켜주는 도구이다.</p>
-<h3 id="XML-활용"><a href="#XML-활용" class="headerlink" title="XML 활용"></a>XML 활용</h3><ul>
-<li>Searchsploit에서 XML활용<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># searchsploit --nmap [XML 파일]</span><br></pre></td></tr></table></figure>
-
-
-</li>
+<h3 id="문자형"><a href="#문자형" class="headerlink" title="문자형"></a>문자형</h3><table>
+<thead>
+<tr>
+<th align="center">데이터</th>
+<th align="center">바이트</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">CHAR</td>
+<td align="center">0~8000</td>
+<td align="left">고정길이</td>
+</tr>
+<tr>
+<td align="center">NCHAR</td>
+<td align="center">0~8000</td>
+<td align="left">유니코드 고정길이</td>
+</tr>
+<tr>
+<td align="center">VARCHAR</td>
+<td align="center">2GB</td>
+<td align="left">가변길이</td>
+</tr>
+<tr>
+<td align="center">NVARCHAR</td>
+<td align="center">2GB</td>
+<td align="left">유니코드 가변길이</td>
+</tr>
+</tbody></table>
+<h3 id="날짜-시간"><a href="#날짜-시간" class="headerlink" title="날짜/시간"></a>날짜/시간</h3><table>
+<thead>
+<tr>
+<th align="center">데이터</th>
+<th align="center">바이트</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DATETIME2</td>
+<td align="center">6~8</td>
+<td align="left">날짜 형식 + 시:분:초 까지 나옴</td>
+</tr>
+<tr>
+<td align="center">DATE</td>
+<td align="center">3</td>
+<td align="left">날짜 형식만 사용가능</td>
+</tr>
+<tr>
+<td align="center">TIME</td>
+<td align="center">5</td>
+<td align="left">시:분:초 형식으로 사용</td>
+</tr>
+</tbody></table>
+<h3 id="대량의-데이터"><a href="#대량의-데이터" class="headerlink" title="대량의 데이터"></a>대량의 데이터</h3><ul>
+<li>VARCHAR(MAX)</li>
+<li>NVARCHAR(MAX)</li>
+<li>VARBINARY(MAX)</li>
 </ul>
-<ul>
-<li>XML을 HTML로 변경</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># xsltproc [XML File] -o [HTML File]</span><br></pre></td></tr></table></figure>
-
-
 
         </div>
 
@@ -290,7 +314,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://sn0wd3er.github.io/2020/11/27/tools/nmap/2020-11-27-nmap/">https://sn0wd3er.github.io/2020/11/27/tools/nmap/2020-11-27-nmap/</a></span>
+                        <span><a href="https://sn0wd3er.github.io/2020/11/30/database/basic/2020-11-30-dataType/">https://sn0wd3er.github.io/2020/11/30/database/basic/2020-11-30-dataType/</a></span>
                     </p>
                 
                 
@@ -314,7 +338,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Nmap/"># Nmap</a>
+                        <a href="/tags/MS-SQL-Data-Type/"># MS SQL Data Type</a>
                     
                         
                 </span>
@@ -327,10 +351,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/11/27/2020-11-27-webBasic/">웹 기본 지식</a>
+                <a class="prev" rel="prev" href="/2020/11/30/database/basic/2020-11-30-variable/">Variable</a>
             
             
-            <a class="next" rel="next" href="/2020/11/26/database/basic/2020-11-26-select/">SELECT Query</a>
+            <a class="next" rel="next" href="/2020/11/30/database/basic/2020-11-30-dml/">DML</a>
             
         </section>
 
